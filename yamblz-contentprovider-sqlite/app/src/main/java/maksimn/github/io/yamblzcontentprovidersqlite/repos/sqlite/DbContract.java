@@ -5,13 +5,13 @@ public interface DbContract {
 
     String GROUPS = "groups";
     interface Groups {
-        String ID = "rowid";
+        String ID = "id";
         String NAME = "name";
     }
 
     String LEARNERS = "learners";
     interface Learners {
-        String ID = "rowid";
+        String ID = "id";
         String NAME = "name";
         String PHONE = "phone";
         String GROUP_ID = "group_id";
