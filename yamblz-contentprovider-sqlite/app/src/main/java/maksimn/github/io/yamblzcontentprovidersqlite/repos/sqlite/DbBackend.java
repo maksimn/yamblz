@@ -19,10 +19,6 @@ public class DbBackend implements DbContract {
         final Cursor cursor = db.query(GROUPS, new String[]{"*"}, null, null,
                 null, null, Groups.ID);
 
-        if (cursor != null) {
-            cursor.moveToFirst();
-        }
-
         return cursor;
     }
 

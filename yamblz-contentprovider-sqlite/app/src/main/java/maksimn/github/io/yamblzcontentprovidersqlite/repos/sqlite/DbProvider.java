@@ -16,7 +16,7 @@ public class DbProvider {
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private final static DbNotificationManager mDbNotificationManager = new DbNotificationManager();
 
-    DbProvider(Context context) {
+    public DbProvider(Context context) {
         mDbBackend = new DbBackend(context);
         mExecutor = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<Runnable>());
@@ -33,16 +33,15 @@ public class DbProvider {
         });
     }
 
-    public void addGroup(final String groupName) {
+    public void addGroup(final String groupName, ResultCallback<Long> callback) {
         mExecutor.execute(() -> {
             final long rowId = mDbBackend.addGroup(groupName);
 
-            if (rowId < 0) {
-                // TODO: error handling
-
-            } else {
+            if (rowId >= 0) {
                 mDbNotificationManager.notifyListeners();
             }
+
+            callback.onFinished(rowId);
         });
     }
 }
