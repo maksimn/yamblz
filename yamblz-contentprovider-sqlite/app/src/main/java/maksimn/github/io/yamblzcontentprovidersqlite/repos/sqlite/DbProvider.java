@@ -26,17 +26,9 @@ public class DbProvider {
     }
 
     public void getGroups(final ResultCallback<Cursor> callback) {
-        mExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                final Cursor cursor = mDbBackend.getGroups();
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onFinished(cursor);
-                    }
-                });
-            }
+        mExecutor.execute(() -> {
+            final Cursor cursor = mDbBackend.getGroups();
+            mHandler.post(() -> callback.onFinished(cursor));
         });
     }
 }
