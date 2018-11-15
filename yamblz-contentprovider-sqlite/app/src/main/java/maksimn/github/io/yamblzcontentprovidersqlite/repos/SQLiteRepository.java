@@ -1,7 +1,6 @@
 package maksimn.github.io.yamblzcontentprovidersqlite.repos;
 
 import android.content.Context;
-import android.database.Cursor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class SQLiteRepository implements IRepository {
 
     @Override
     public void getGroups(Action<List<Group>> action) {
-        DbProvider.ResultCallback<Cursor> callback = cursor -> {
+        mDbProvider.getGroups(cursor -> {
             final List<Group> groups = new ArrayList<>();
 
             while (cursor.moveToNext()) {
@@ -34,15 +33,11 @@ public class SQLiteRepository implements IRepository {
             }
 
             action.run(groups);
-        };
-
-        mDbProvider.getGroups(callback);
+        });
     }
 
     @Override
     public void addGroup(String groupName, Action<Long> result) {
-        DbProvider.ResultCallback<Long> callback = longNum -> { result.run(longNum); };
-
-        mDbProvider.addGroup(groupName, callback);
+        mDbProvider.addGroup(groupName, longNum -> { result.run(longNum); });
     }
 }

@@ -14,8 +14,6 @@ public class DbOpenHelper extends SQLiteOpenHelper implements DbContract  {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // db.execSQL("PRAGMA journal_mode = WAL;");
-        db.execSQL("PRAGMA foreign_keys = ON;");
         db.execSQL("CREATE TABLE " + GROUPS + "(" +
                 Groups.ID + " INTEGER PRIMARY KEY," +
                 Groups.NAME + " TEXT UNIQUE NOT NULL);");
@@ -35,5 +33,13 @@ public class DbOpenHelper extends SQLiteOpenHelper implements DbContract  {
         db.execSQL("DROP TABLE " + GROUPS);
         db.execSQL("DROP TABLE " + LEARNERS);
         onCreate(db);
+    }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+
+        db.rawQuery("PRAGMA journal_mode = WAL;", null);
+        db.execSQL("PRAGMA foreign_keys = ON;");
     }
 }
