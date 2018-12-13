@@ -14,7 +14,7 @@ interface NewMailListener {
 class MailManager {
     private val newMailListeners = mutableListOf<NewMailListener>()
 
-    private var newMail: NewMailEventArgs by Delegates.observable(
+    var newMail: NewMailEventArgs by Delegates.observable(
             NewMailEventArgs("", "", "")
     ) { _, _, newMail->
 
@@ -31,10 +31,6 @@ class MailManager {
 
     fun removeNewMailListener(listener: NewMailListener) {
         newMailListeners.remove(listener)
-    }
-
-    fun simulateNewMail(newMail: NewMailEventArgs) {
-        this.newMail = newMail
     }
 }
 
@@ -57,7 +53,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // DEMO CODE:
-
         val mailManager = MailManager()
         val fax = Fax()
         val pager = Pager()
@@ -65,14 +60,14 @@ class MainActivity : AppCompatActivity() {
         mailManager.addNewMailListener(fax)
         mailManager.addNewMailListener(pager)
 
-        mailManager.simulateNewMail(NewMailEventArgs("Alice", "Bob", "SHUE"))
+        mailManager.newMail = NewMailEventArgs("Alice", "Bob", "SHUE")
 
         mailManager.removeNewMailListener(fax)
 
-        mailManager.simulateNewMail(NewMailEventArgs("Stalin", "Lenin", "PPSH SHPSH"))
+        mailManager.newMail = NewMailEventArgs("Stalin", "Lenin", "PPSH SHPSH")
 
         mailManager.removeNewMailListener(pager)
 
-        mailManager.simulateNewMail(NewMailEventArgs("A", "B", "C"))
+        mailManager.newMail = NewMailEventArgs("A", "B", "C")
     }
 }
