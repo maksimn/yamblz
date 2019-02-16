@@ -9,27 +9,23 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import java.util.ArrayList;
 import io.github.maksimn.yamblz2017intro.data.pojo.Language;
-import io.github.maksimn.yamblz2017intro.data.repository.LanguageListRepository;
+import io.github.maksimn.yamblz2017intro.data.repository.LanguagesRepository;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LanguageListRepository languageListRepository;
+    private LanguagesRepository languagesRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        languageListRepository = new LanguageListRepository(this);
+        languagesRepository = new LanguagesRepository(this);
 
         final Spinner spinner = findViewById(R.id.from_language_spinner);
 
-        ArrayList<Language> list = (ArrayList<Language>) languageListRepository.getLanguageList();
-
-        MyCustomAdapter adapter = new MyCustomAdapter(MainActivity.this,
-                R.layout.spinner_item_language);
+        MyCustomAdapter adapter = new MyCustomAdapter(this, R.layout.spinner_language);
 
         spinner.setAdapter(adapter);
     }
@@ -37,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public class MyCustomAdapter extends ArrayAdapter<Language> {
 
         public MyCustomAdapter(Context context, int textViewResourceId) {
-            super(context, textViewResourceId, languageListRepository.getLanguageList());
+            super(context, textViewResourceId, languagesRepository.getLanguages());
         }
 
         @Override
@@ -57,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
                                   ViewGroup parent) {
 
             LayoutInflater inflater = getLayoutInflater();
-            View row = inflater.inflate(R.layout.spinner_item_language, parent, false);
-            TextView label = (TextView) row.findViewById(R.id.language_name);
-            String text = languageListRepository.getLanguageList().get(position).lang_name;
+            View row = inflater.inflate(R.layout.spinner_language, parent, false);
+            TextView label = row.findViewById(R.id.language_name);
+            String text = languagesRepository.getLanguages()[position].lang_name;
             label.setText(text);
 
             return row;
