@@ -3,27 +3,27 @@ package io.github.maksimn.yamblz2017intro.data.repository;
 import android.content.Context;
 import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.pojo.Language;
-import io.github.maksimn.yamblz2017intro.utils.JsonUtils;
-import io.github.maksimn.yamblz2017intro.utils.ResourceUtils;
+import io.github.maksimn.yamblz2017intro.util.JsonUtil;
+import io.github.maksimn.yamblz2017intro.util.ResourceUtil;
 
 public class LanguagesRepository {
 
     private static Language[] smLanguages;
-    private static String[] languageNames;
+    private static String[] smLanguageNames;
 
     public LanguagesRepository(Context context) {
         if (smLanguages == null) {
             final String languagesJson =
-                    ResourceUtils.readRawAsString(context.getResources(), R.raw.languages);
+                    ResourceUtil.readRawAsString(context.getResources(), R.raw.languages);
 
-            smLanguages = JsonUtils.toLanguageList(languagesJson);
+            smLanguages = JsonUtil.toLanguageList(languagesJson);
 
             final int n = smLanguages.length;
 
-            languageNames = new String[n];
+            smLanguageNames = new String[n];
 
             for(int i = 0; i < n; i++) {
-                languageNames[i] = smLanguages[i].lang_name;
+                smLanguageNames[i] = smLanguages[i].lang_name;
             }
         }
     }
@@ -32,7 +32,5 @@ public class LanguagesRepository {
         return smLanguages;
     }
 
-    public String[] getLanguageNames() {
-        return languageNames;
-    }
+    public String[] getLanguageNames() { return smLanguageNames; }
 }

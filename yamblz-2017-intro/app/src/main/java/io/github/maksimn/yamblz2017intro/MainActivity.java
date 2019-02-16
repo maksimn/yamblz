@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         final LanguagesRepository languagesRepository = new LanguagesRepository(this);
         final Spinner spinner = findViewById(R.id.from_language_spinner);
 
-        LanguagesAdapter adapter = new LanguagesAdapter(this, R.layout.spinner_language,
+        LanguagesAdapter adapter = new LanguagesAdapter(this, R.layout.item_language,
                 languagesRepository.getLanguageNames(), getLayoutInflater());
 
         spinner.setAdapter(adapter);

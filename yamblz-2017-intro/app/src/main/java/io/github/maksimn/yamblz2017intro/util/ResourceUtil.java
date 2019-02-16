@@ -1,4 +1,4 @@
-package io.github.maksimn.yamblz2017intro.utils;
+package io.github.maksimn.yamblz2017intro.util;
 
 import android.content.res.Resources;
 import java.io.BufferedReader;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class ResourceUtils {
+public class ResourceUtil {
 
     public static String readRawAsString(Resources resources, int resId) {
         InputStream rawResource = resources.openRawResource(resId);

@@ -32,7 +32,7 @@ public class LanguagesAdapter extends ArrayAdapter<String> {
     }
 
     public View getCustomView(int position, View convertView, ViewGroup parent) {
-        View row = inflater.inflate(R.layout.spinner_language, parent, false);
+        View row = inflater.inflate(R.layout.item_language, parent, false);
         TextView label = row.findViewById(R.id.language_name);
         String text = languages[position];
         label.setText(formattedLanguageName(text));
