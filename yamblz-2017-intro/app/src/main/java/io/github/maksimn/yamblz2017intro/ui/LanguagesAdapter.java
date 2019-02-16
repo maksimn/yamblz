@@ -35,8 +35,18 @@ public class LanguagesAdapter extends ArrayAdapter<String> {
         View row = inflater.inflate(R.layout.spinner_language, parent, false);
         TextView label = row.findViewById(R.id.language_name);
         String text = languages[position];
-        label.setText(text.substring(0, 1).toUpperCase() + text.substring(1));
+        label.setText(formattedLanguageName(text));
 
         return row;
+    }
+
+    private String formattedLanguageName(String langName) {
+        final int ind = langName.indexOf(' ');
+
+        if (ind <= 1) {
+            return langName.substring(0, 1).toUpperCase() + langName.substring(1);
+        } else {
+            return langName.substring(0, 1).toUpperCase() + langName.substring(1, ind);
+        }
     }
 }
