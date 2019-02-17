@@ -41,13 +41,17 @@ public class TranslatorFragment extends Fragment {
 
     private void initializeSpinner(final int spinnerId, String language) {
         final Spinner spinner = getActivity().findViewById(spinnerId);
+        final String[] languages = spinnerId == R.id.from_language_spinner ?
+                languagesRepository.getLanguageNames() :
+                languagesRepository.getSupportedLanguageNames();
         final LanguagesAdapter adapter = new LanguagesAdapter(getContext(), R.layout.item_language,
-                languagesRepository.getLanguageNames(), getLayoutInflater());
-        final int langPos = adapter.getPosition(language);
+                languages, getLayoutInflater());
 
         spinner.setAdapter(adapter);
-        spinner.setSelection(langPos);
 
+        final int langPos = adapter.getPosition(language);
+
+        spinner.setSelection(langPos);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -62,9 +66,7 @@ public class TranslatorFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
     }
 }

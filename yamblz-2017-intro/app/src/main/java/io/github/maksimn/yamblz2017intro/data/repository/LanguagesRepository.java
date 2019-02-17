@@ -11,6 +11,8 @@ public class LanguagesRepository {
     private static Language[] smLanguages;
     private static String[] smLanguageNames;
 
+    private static String[] supported = {"Русский", "Татарский", "Украинский", "Узбекский"};
+
     public LanguagesRepository(Context context) {
         if (smLanguages == null) {
             final String languagesJson =
@@ -37,4 +39,6 @@ public class LanguagesRepository {
     public String defaultLanguage() { return "Английский"; }
 
     public String secondDefaultLanguage() { return "Русский"; }
+
+    public String[] getSupportedLanguageNames() { return supported; }
 }
