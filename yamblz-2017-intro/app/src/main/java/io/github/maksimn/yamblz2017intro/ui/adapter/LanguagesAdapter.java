@@ -1,4 +1,4 @@
-package io.github.maksimn.yamblz2017intro.ui;
+package io.github.maksimn.yamblz2017intro.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
