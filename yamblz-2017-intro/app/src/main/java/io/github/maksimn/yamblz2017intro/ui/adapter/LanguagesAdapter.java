@@ -43,10 +43,6 @@ public class LanguagesAdapter extends ArrayAdapter<String> {
     private String formattedLanguageName(String langName) {
         final int ind = langName.indexOf(' ');
 
-        if (ind <= 1) {
-            return langName.substring(0, 1).toUpperCase() + langName.substring(1);
-        } else {
-            return langName.substring(0, 1).toUpperCase() + langName.substring(1, ind);
-        }
+        return ind < 0 ? langName : langName.substring(0, ind);
     }
 }

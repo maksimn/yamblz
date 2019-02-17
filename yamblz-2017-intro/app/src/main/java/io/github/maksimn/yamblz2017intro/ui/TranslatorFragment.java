@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.repository.LanguagesRepository;
 import io.github.maksimn.yamblz2017intro.ui.adapter.LanguagesAdapter;
@@ -37,17 +39,32 @@ public class TranslatorFragment extends Fragment {
         initializeSpinner(R.id.to_language_spinner, viewModel.getToLanguage());
     }
 
-    private LanguagesAdapter createLanguagesAdapter() {
-        return new LanguagesAdapter(getContext(), R.layout.item_language,
-                languagesRepository.getLanguageNames(), getLayoutInflater());
-    }
-
-    private void initializeSpinner(int spinnerId, String language) {
+    private void initializeSpinner(final int spinnerId, String language) {
         final Spinner spinner = getActivity().findViewById(spinnerId);
-        final LanguagesAdapter adapter = createLanguagesAdapter();
+        final LanguagesAdapter adapter = new LanguagesAdapter(getContext(), R.layout.item_language,
+                languagesRepository.getLanguageNames(), getLayoutInflater());
         final int langPos = adapter.getPosition(language);
 
         spinner.setAdapter(adapter);
         spinner.setSelection(langPos);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                final TextView spinnerTextView = (TextView) view;
+                final String languageName = spinnerTextView.getText().toString();
+
+                if (spinnerId == R.id.from_language_spinner) {
+                    viewModel.setFromLanguage(languageName);
+                } else if (spinnerId == R.id.to_language_spinner) {
+                    viewModel.setToLanguage(languageName);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }

@@ -34,7 +34,7 @@ public class LanguagesRepository {
 
     public String[] getLanguageNames() { return smLanguageNames; }
 
-    public String defaultLanguage() { return "английский"; }
+    public String defaultLanguage() { return "Английский"; }
 
-    public String secondDefaultLanguage() { return "русский"; }
+    public String secondDefaultLanguage() { return "Русский"; }
 }

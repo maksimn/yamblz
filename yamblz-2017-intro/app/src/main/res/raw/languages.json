@@ -1,280 +1,280 @@
 [{
-  "lang_name":"азербайджанский",
+  "lang_name":"Азербайджанский",
   "lang_code":"az"
 },{
-  "lang_name":"албанский",
+  "lang_name":"Албанский",
   "lang_code":"sq"
 },{
-  "lang_name":"амхарский",
+  "lang_name":"Амхарский",
   "lang_code":"am"
 },{
-  "lang_name":"английский",
+  "lang_name":"Английский",
   "lang_code":"en"
 },{
-  "lang_name":"арабский",
+  "lang_name":"Арабский",
   "lang_code":"ar"
 },{
-  "lang_name":"армянский",
+  "lang_name":"Армянский",
   "lang_code":"hy"
 },{
-  "lang_name":"африкаанс",
+  "lang_name":"Африкаанс",
   "lang_code":"af"
 },{
-  "lang_name":"баскский",
+  "lang_name":"Баскский",
   "lang_code":"eu"
 },{
-  "lang_name":"башкирский",
+  "lang_name":"Башкирский",
   "lang_code":"ba"
 },{
-  "lang_name":"белорусский",
+  "lang_name":"Белорусский",
   "lang_code":"be"
 },{
-  "lang_name":"бенгальский",
+  "lang_name":"Бенгальский",
   "lang_code":"bn"
 },{
-  "lang_name":"бирманский",
+  "lang_name":"Бирманский",
   "lang_code":"my"
 },{
-  "lang_name":"болгарский",
+  "lang_name":"Болгарский",
   "lang_code":"bg"
 },{
-  "lang_name":"боснийский",
+  "lang_name":"Боснийский",
   "lang_code":"bs"
 },{
-  "lang_name":"валлийский",
+  "lang_name":"Валлийский",
   "lang_code":"cy"
 },{
-  "lang_name":"венгерский",
+  "lang_name":"Венгерский",
   "lang_code":"hu"
 },{
-  "lang_name":"вьетнамский",
+  "lang_name":"Вьетнамский",
   "lang_code":"vi"
 },{
-  "lang_name":"гаитянский (креольский)",
+  "lang_name":"Гаитянский (креольский)",
   "lang_code":"ht"
 },{
-  "lang_name":"галисийский",
+  "lang_name":"Галисийский",
   "lang_code":"gl"
 },{
-  "lang_name":"голландский",
+  "lang_name":"Голландский",
   "lang_code":"nl"
 },{
-  "lang_name":"горномарийский",
+  "lang_name":"Горномарийский",
   "lang_code":"mrj"
 },{
-  "lang_name":"греческий",
+  "lang_name":"Греческий",
   "lang_code":"el"
 },{
-  "lang_name":"грузинский",
+  "lang_name":"Грузинский",
   "lang_code":"ka"
 },{
-  "lang_name":"гуджарати",
+  "lang_name":"Гуджарати",
   "lang_code":"gu"
 },{
-  "lang_name":"датский",
+  "lang_name":"Датский",
   "lang_code":"da"
 },{
-  "lang_name":"иврит",
+  "lang_name":"Иврит",
   "lang_code":"he"
 },{
-  "lang_name":"идиш",
+  "lang_name":"Идиш",
   "lang_code":"yi"
 },{
-  "lang_name":"индонезийский",
+  "lang_name":"Индонезийский",
   "lang_code":"id"
 },{
-  "lang_name":"ирландский",
+  "lang_name":"Ирландский",
   "lang_code":"ga"
 },{
-  "lang_name":"итальянский",
+  "lang_name":"Итальянский",
   "lang_code":"it"
 },{
-  "lang_name":"исландский",
+  "lang_name":"Исландский",
   "lang_code":"is"
 },{
-  "lang_name":"испанский",
+  "lang_name":"Испанский",
   "lang_code":"es"
 },{
-  "lang_name":"казахский",
+  "lang_name":"Казахский",
   "lang_code":"kk"
 },{
-  "lang_name":"каннада",
+  "lang_name":"Каннада",
   "lang_code":"kn"
 },{
-  "lang_name":"каталанский",
+  "lang_name":"Каталанский",
   "lang_code":"cn"
 },{
-  "lang_name":"киргизский",
+  "lang_name":"Киргизский",
   "lang_code":"ky"
 },{
-  "lang_name":"китайский",
+  "lang_name":"Китайский",
   "lang_code":"zh"
 },{
-  "lang_name":"корейский",
+  "lang_name":"Корейский",
   "lang_code":"ko"
 },{
-  "lang_name":"коса",
+  "lang_name":"Коса",
   "lang_code":"xh"
 },{
-  "lang_name":"кхмерский",
+  "lang_name":"Кхмерский",
   "lang_code":"km"
 },{
-  "lang_name":"лаосский",
+  "lang_name":"Лаосский",
   "lang_code":"lo"
 },{
-  "lang_name":"латынь",
+  "lang_name":"Латынь",
   "lang_code":"la"
 },{
-  "lang_name":"латышский",
+  "lang_name":"Латышский",
   "lang_code":"lv"
 },{
-  "lang_name":"литовский",
+  "lang_name":"Литовский",
   "lang_code":"lt"
 },{
-  "lang_name":"люксембургский",
+  "lang_name":"Люксембургский",
   "lang_code":"lg"
 },{
-  "lang_name":"малагасийский",
+  "lang_name":"Малагасийский",
   "lang_code":"mg"
 },{
-  "lang_name":"малайский",
+  "lang_name":"Малайский",
   "lang_code":"ms"
 },{
-  "lang_name":"малаялам",
+  "lang_name":"Малаялам",
   "lang_code":"ml"
 },{
-  "lang_name":"мальтийский",
+  "lang_name":"Мальтийский",
   "lang_code":"mt"
 },{
-  "lang_name":"македонский",
+  "lang_name":"Македонский",
   "lang_code":"mk"
 },{
-  "lang_name":"маори",
+  "lang_name":"Маори",
   "lang_code":"mi"
 },{
-  "lang_name":"маратхи",
+  "lang_name":"Маратхи",
   "lang_code":"mr"
 },{
-  "lang_name":"марийский",
+  "lang_name":"Марийский",
   "lang_code":"mhr"
 },{
-  "lang_name":"монгольский",
+  "lang_name":"Монгольский",
   "lang_code":"mn"
 },{
-  "lang_name":"немецкий",
+  "lang_name":"Немецкий",
   "lang_code":"de"
 },{
-  "lang_name":"непальский",
+  "lang_name":"Непальский",
   "lang_code":"ne"
 },{
-  "lang_name":"норвежский",
+  "lang_name":"Норвежский",
   "lang_code":"no"
 },{
-  "lang_name":"панджаби",
+  "lang_name":"Панджаби",
   "lang_code":"pa"
 },{
-  "lang_name":"папьяменто",
+  "lang_name":"Папьяменто",
   "lang_code":"pap"
 },{
-  "lang_name":"персидский",
+  "lang_name":"Персидский",
   "lang_code":"fa"
 },{
-  "lang_name":"польский",
+  "lang_name":"Польский",
   "lang_code":"pl"
 },{
-  "lang_name":"португальский",
+  "lang_name":"Португальский",
   "lang_code":"pt"
 },{
-  "lang_name":"румынский",
+  "lang_name":"Румынский",
   "lang_code":"ro"
 },{
-  "lang_name":"русский",
+  "lang_name":"Русский",
   "lang_code":"ru"
 },{
-  "lang_name":"себуанский",
+  "lang_name":"Себуанский",
   "lang_code":"ceb"
 },{
-  "lang_name":"сербский",
+  "lang_name":"Сербский",
   "lang_code":"sr"
 },{
-  "lang_name":"сингальский",
+  "lang_name":"Сингальский",
   "lang_code":"si"
 },{
-  "lang_name":"словацкий",
+  "lang_name":"Словацкий",
   "lang_code":"sk"
 },{
-  "lang_name":"словенский",
+  "lang_name":"Словенский",
   "lang_code":"sl"
 },{
-  "lang_name":"суахили",
+  "lang_name":"Суахили",
   "lang_code":"sw"
 },{
-  "lang_name":"сунданский",
+  "lang_name":"Сунданский",
   "lang_code":"su"
 },{
-  "lang_name":"таджикский",
+  "lang_name":"Таджикский",
   "lang_code":"tg"
 },{
-  "lang_name":"тайский",
+  "lang_name":"Тайский",
   "lang_code":"th"
 },{
-  "lang_name":"тагальский",
+  "lang_name":"Тагальский",
   "lang_code":"tl"
 },{
-  "lang_name":"тамильский",
+  "lang_name":"Тамильский",
   "lang_code":"ta"
 },{
-  "lang_name":"татарский",
+  "lang_name":"Татарский",
   "lang_code":"tt"
 },{
-  "lang_name":"телугу",
+  "lang_name":"Телугу",
   "lang_code":"te"
 },{
-  "lang_name":"турецкий",
+  "lang_name":"Турецкий",
   "lang_code":"tr"
 },{
-  "lang_name":"удмуртский",
+  "lang_name":"Удмуртский",
   "lang_code":"udm"
 },{
-  "lang_name":"узбекский",
+  "lang_name":"Узбекский",
   "lang_code":"uz"
 },{
-  "lang_name":"украинский",
+  "lang_name":"Украинский",
   "lang_code":"uk"
 },{
-  "lang_name":"урду",
+  "lang_name":"Урду",
   "lang_code":"ur"
 },{
-  "lang_name":"финский",
+  "lang_name":"Финский",
   "lang_code":"fi"
 },{
-  "lang_name":"французский",
+  "lang_name":"Французский",
   "lang_code":"fr"
 },{
-  "lang_name":"хинди",
+  "lang_name":"Хинди",
   "lang_code":"hi"
 },{
-  "lang_name":"хорватский",
+  "lang_name":"Хорватский",
   "lang_code":"hr"
 },{
-  "lang_name":"чешский",
+  "lang_name":"Чешский",
   "lang_code":"cs"
 },{
-  "lang_name":"шведский",
+  "lang_name":"Шведский",
   "lang_code":"sv"
 },{
-  "lang_name":"шотландский",
+  "lang_name":"Шотландский",
   "lang_code":"gd"
 },{
-  "lang_name":"эсперанто",
+  "lang_name":"Эсперанто",
   "lang_code":"et"
 },{
-  "lang_name":"эстонский",
+  "lang_name":"Эстонский",
   "lang_code":"eo"
 },{
-  "lang_name":"яванский",
+  "lang_name":"Яванский",
   "lang_code":"jv"
 },{
-  "lang_name":"японский",
+  "lang_name":"Японский",
   "lang_code":"ja"
 }]
