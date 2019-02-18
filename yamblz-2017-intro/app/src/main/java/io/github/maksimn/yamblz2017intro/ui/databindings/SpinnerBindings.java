@@ -6,6 +6,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import io.github.maksimn.yamblz2017intro.R;
+import io.github.maksimn.yamblz2017intro.util.Action;
 
 public class SpinnerBindings {
 
@@ -32,9 +33,9 @@ public class SpinnerBindings {
         }
     }
 
-    @BindingAdapter("app:onItemSelected")
+    @BindingAdapter("onItemSelected")
     public static void setItemSelectedListener(Spinner spinner,
-                                               ItemSelectedListener listener) {
+                                               Action<Object> listener) {
         if (listener == null) {
             spinner.setOnItemSelectedListener(null);
         } else {
@@ -43,7 +44,7 @@ public class SpinnerBindings {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     Object tag = spinner.getTag();
                     if (tag == null || (tag != null && !tag.equals(position))) {
-                        listener.onItemSelected(parent.getItemAtPosition(position));
+                        listener.run(parent.getItemAtPosition(position));
                     }
                 }
 
