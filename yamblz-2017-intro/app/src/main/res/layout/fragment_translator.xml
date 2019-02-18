@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     tools:context=".MainActivity">
 
     <View
@@ -46,5 +48,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/left_right_arrow"
         app:layout_constraintBottom_toBottomOf="@+id/header" />
+
+    <EditText
+        android:id="@+id/text_for_translation"
+        android:inputType="textMultiLine"
+        android:lines="6"
+        android:minLines="6"
+        android:gravity="top|left"
+        android:maxLines="6"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:scrollbars="vertical"
+        android:layout_margin="10dp"
+        android:textCursorDrawable="@null"
+        android:textColor="@color/translatorEditTextColor"
+        android:background="@drawable/edittextborder"
+        android:hint="Введите текст"
+        android:padding="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

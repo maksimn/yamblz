@@ -3,4 +3,6 @@
     <color name="colorPrimary">#ffdc61</color>
     <color name="colorPrimaryDark">#e1c255</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="translatorEditTextColor">#888888</color>
 </resources>

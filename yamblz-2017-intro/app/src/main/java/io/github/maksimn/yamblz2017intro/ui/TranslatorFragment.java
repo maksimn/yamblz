@@ -67,7 +67,7 @@ public class TranslatorFragment extends Fragment {
                 if (spinnerTextView != null) {
                     final String languageName = spinnerTextView.getText().toString();
 
-                    onItemSelectedCallback.invoke(languageName);
+                    onItemSelectedCallback.run(languageName);
                 }
             }
 
