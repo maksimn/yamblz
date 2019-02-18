@@ -2,36 +2,36 @@ package io.github.maksimn.yamblz2017intro.data.repository;
 
 import android.content.Context;
 import io.github.maksimn.yamblz2017intro.R;
-import io.github.maksimn.yamblz2017intro.data.pojo.Language;
+import io.github.maksimn.yamblz2017intro.data.pojo.Lang;
 import io.github.maksimn.yamblz2017intro.util.JsonUtil;
 import io.github.maksimn.yamblz2017intro.util.ResourceUtil;
 
-public class LanguagesRepository {
+public class LangRepository {
 
-    private static Language[] smLanguages;
+    private static Lang[] smLangs;
     private static String[] smLanguageNames;
 
     private static String[] supported = {"Русский", "Татарский", "Украинский", "Узбекский"};
 
-    public LanguagesRepository(Context context) {
-        if (smLanguages == null) {
+    public LangRepository(Context context) {
+        if (smLangs == null) {
             final String languagesJson =
                     ResourceUtil.readRawAsString(context.getResources(), R.raw.languages);
 
-            smLanguages = JsonUtil.toLanguageList(languagesJson);
+            smLangs = JsonUtil.toLanguageList(languagesJson);
 
-            final int n = smLanguages.length;
+            final int n = smLangs.length;
 
             smLanguageNames = new String[n];
 
             for(int i = 0; i < n; i++) {
-                smLanguageNames[i] = smLanguages[i].lang_name;
+                smLanguageNames[i] = smLangs[i].lang_name;
             }
         }
     }
 
-    public Language[] getLanguages() {
-        return smLanguages;
+    public Lang[] getLanguages() {
+        return smLangs;
     }
 
     public String[] getLanguageNames() { return smLanguageNames; }

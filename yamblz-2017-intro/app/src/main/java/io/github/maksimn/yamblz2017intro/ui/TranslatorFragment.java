@@ -11,14 +11,14 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import io.github.maksimn.yamblz2017intro.R;
-import io.github.maksimn.yamblz2017intro.data.repository.LanguagesRepository;
-import io.github.maksimn.yamblz2017intro.ui.adapter.LanguagesAdapter;
+import io.github.maksimn.yamblz2017intro.data.repository.LangRepository;
+import io.github.maksimn.yamblz2017intro.ui.adapter.LangAdapter;
 import io.github.maksimn.yamblz2017intro.util.Action;
 
 public class TranslatorFragment extends Fragment {
 
     private TranslatorViewModel viewModel;
-    private LanguagesRepository languagesRepository;
+    private LangRepository langRepository;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -30,22 +30,22 @@ public class TranslatorFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        languagesRepository = new LanguagesRepository(getActivity());
+        langRepository = new LangRepository(getActivity());
 
         viewModel = new TranslatorViewModel();
-        viewModel.setFromLanguage(languagesRepository.defaultLanguage());
-        viewModel.setToLanguage(languagesRepository.secondDefaultLanguage());
+        viewModel.setFromLanguage(langRepository.defaultLanguage());
+        viewModel.setToLanguage(langRepository.secondDefaultLanguage());
 
         initializeSpinner(
                 R.id.from_language_spinner,
                 viewModel.getFromLanguage(),
-                languagesRepository.getLanguageNames(),
+                langRepository.getLanguageNames(),
                 langName -> viewModel.setFromLanguage(langName)
         );
         initializeSpinner(
                 R.id.to_language_spinner,
                 viewModel.getToLanguage(),
-                languagesRepository.getSupportedLanguageNames(),
+                langRepository.getSupportedLanguageNames(),
                 langName -> viewModel.setToLanguage(langName)
         );
     }
@@ -53,7 +53,7 @@ public class TranslatorFragment extends Fragment {
     private void initializeSpinner(final int spinnerId, String language, String[] languages,
                                    Action<String> onItemSelectedCallback) {
         final Spinner spinner = getActivity().findViewById(spinnerId);
-        final LanguagesAdapter adapter = new LanguagesAdapter(getContext(), R.layout.item_language,
+        final LangAdapter adapter = new LangAdapter(getContext(), R.layout.item_language,
                 languages, getLayoutInflater());
         final int langPos = adapter.getPosition(language);
 

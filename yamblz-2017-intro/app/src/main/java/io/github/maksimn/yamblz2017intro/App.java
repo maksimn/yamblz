@@ -1,7 +1,7 @@
 package io.github.maksimn.yamblz2017intro;
 
 import android.app.Application;
-import io.github.maksimn.yamblz2017intro.data.repository.LanguagesRepository;
+import io.github.maksimn.yamblz2017intro.data.repository.LangRepository;
 
 public class App extends Application {
 
@@ -10,6 +10,6 @@ public class App extends Application {
         super.onCreate();
 
         // Initialize list of all supported languages
-        new LanguagesRepository(this);
+        new LangRepository(this);
     }
 }

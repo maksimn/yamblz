@@ -8,13 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import io.github.maksimn.yamblz2017intro.R;
 
-public class LanguagesAdapter extends ArrayAdapter<String> {
+public class LangAdapter extends ArrayAdapter<String> {
 
     private String[] languages;
     private LayoutInflater inflater;
 
-    public LanguagesAdapter(Context context, int textViewResourceId, String[] languages,
-                            LayoutInflater inflater) {
+    public LangAdapter(Context context, int textViewResourceId, String[] languages,
+                       LayoutInflater inflater) {
         super(context, textViewResourceId, languages);
         this.languages = languages;
         this.inflater = inflater;
