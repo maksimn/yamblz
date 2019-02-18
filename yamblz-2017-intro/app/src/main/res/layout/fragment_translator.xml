@@ -31,6 +31,8 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:layout_marginRight="8dp"
+        android:textAlignment="gravity"
+        android:gravity="right"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/left_right_arrow"
         app:layout_constraintBottom_toBottomOf="@+id/header" />
