@@ -1,5 +1,6 @@
 package io.github.maksimn.yamblz2017intro.ui;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.repository.LangRepository;
+import io.github.maksimn.yamblz2017intro.databinding.FragmentTranslatorBinding;
 import io.github.maksimn.yamblz2017intro.ui.adapter.LangAdapter;
 import io.github.maksimn.yamblz2017intro.util.Action;
 
@@ -23,31 +25,31 @@ public class TranslatorFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_translator, container, false);
+        FragmentTranslatorBinding binding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_translator, container, false);
+        View view = binding.getRoot();
+
+        langRepository = new LangRepository(getActivity());
+        viewModel = new TranslatorViewModel();
+        viewModel.setFromLanguage(langRepository.defaultLanguage());
+        viewModel.setToLanguage(langRepository.secondDefaultLanguage());
+        viewModel.setTextForTranslation("Test");
+
+        binding.setViewModel(viewModel);
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        langRepository = new LangRepository(getActivity());
-
-        viewModel = new TranslatorViewModel();
-        viewModel.setFromLanguage(langRepository.defaultLanguage());
-        viewModel.setToLanguage(langRepository.secondDefaultLanguage());
-
-        initializeSpinner(
-                R.id.from_language_spinner,
-                viewModel.getFromLanguage(),
+        initializeSpinner(R.id.from_language_spinner, viewModel.getFromLanguage(),
                 langRepository.getLanguageNames(),
-                langName -> viewModel.setFromLanguage(langName)
-        );
-        initializeSpinner(
-                R.id.to_language_spinner,
-                viewModel.getToLanguage(),
+                langName -> viewModel.setFromLanguage(langName));
+        initializeSpinner(R.id.to_language_spinner, viewModel.getToLanguage(),
                 langRepository.getSupportedLanguageNames(),
-                langName -> viewModel.setToLanguage(langName)
-        );
+                langName -> viewModel.setToLanguage(langName));
     }
 
     private void initializeSpinner(final int spinnerId, String language, String[] languages,
