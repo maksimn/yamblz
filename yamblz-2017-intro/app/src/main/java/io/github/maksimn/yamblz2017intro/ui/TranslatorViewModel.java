@@ -1,6 +1,9 @@
 package io.github.maksimn.yamblz2017intro.ui;
 
-public class TranslatorViewModel {
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+public class TranslatorViewModel extends BaseObservable {
 
     private String fromLanguage;
     private String toLanguage;
@@ -27,6 +30,7 @@ public class TranslatorViewModel {
         textForTranslation = value;
     }
 
+    @Bindable
     public String getTextForTranslation() {
         return textForTranslation;
     }

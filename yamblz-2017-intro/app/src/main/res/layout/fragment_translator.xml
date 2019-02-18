@@ -71,7 +71,7 @@
             android:background="@drawable/edittextborder"
             android:hint="Введите текст"
             android:padding="6dp"
-            android:text="@{viewModel.textForTranslation}"
+            android:text="@={viewModel.textForTranslation}"
             app:layout_constraintTop_toBottomOf="@+id/header"
             app:layout_constraintLeft_toLeftOf="parent" />
 

@@ -33,7 +33,6 @@ public class TranslatorFragment extends Fragment {
         viewModel = new TranslatorViewModel();
         viewModel.setFromLanguage(langRepository.defaultLanguage());
         viewModel.setToLanguage(langRepository.secondDefaultLanguage());
-        viewModel.setTextForTranslation("Test");
 
         binding.setViewModel(viewModel);
 
