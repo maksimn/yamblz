@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import io.github.maksimn.yamblz2017intro.R;
-import io.github.maksimn.yamblz2017intro.data.repository.LangRepository;
 import io.github.maksimn.yamblz2017intro.databinding.FragmentTranslatorBinding;
 import io.github.maksimn.yamblz2017intro.ui.adapter.LangAdapter;
 import io.github.maksimn.yamblz2017intro.util.Action;
@@ -20,7 +19,6 @@ import io.github.maksimn.yamblz2017intro.util.Action;
 public class TranslatorFragment extends Fragment {
 
     private TranslatorViewModel viewModel;
-    private LangRepository langRepository;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -28,14 +26,8 @@ public class TranslatorFragment extends Fragment {
         FragmentTranslatorBinding binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_translator, container, false);
         View view = binding.getRoot();
-
-        langRepository = new LangRepository(getActivity());
         viewModel = new TranslatorViewModel();
-        viewModel.setFromLanguage(langRepository.defaultLanguage());
-        viewModel.setToLanguage(langRepository.secondDefaultLanguage());
-
         binding.setViewModel(viewModel);
-
         return view;
     }
 
@@ -44,10 +36,10 @@ public class TranslatorFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initializeSpinner(R.id.from_language_spinner, viewModel.getFromLanguage(),
-                langRepository.getLanguageNames(),
+                viewModel.getLanguageNames(),
                 langName -> viewModel.setFromLanguage(langName));
         initializeSpinner(R.id.to_language_spinner, viewModel.getToLanguage(),
-                langRepository.getSupportedLanguageNames(),
+                viewModel.getSupportedLanguageNames(),
                 langName -> viewModel.setToLanguage(langName));
     }
 
