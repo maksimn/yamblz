@@ -2,23 +2,21 @@ package io.github.maksimn.yamblz2017intro.ui;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.databinding.FragmentTranslatorBinding;
-import io.github.maksimn.yamblz2017intro.ui.adapter.LangAdapter;
-import io.github.maksimn.yamblz2017intro.util.Action;
 
 public class TranslatorFragment extends Fragment {
 
     private TranslatorViewModel viewModel;
+
+    Handler handler = new Handler();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -28,44 +26,16 @@ public class TranslatorFragment extends Fragment {
         View view = binding.getRoot();
         viewModel = new TranslatorViewModel();
         binding.setViewModel(viewModel);
+
+        foo();
+
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        initializeSpinner(R.id.from_language_spinner, viewModel.getFromLanguage(),
-                viewModel.getLanguageNames(),
-                langName -> viewModel.setFromLanguage(langName));
-        initializeSpinner(R.id.to_language_spinner, viewModel.getToLanguage(),
-                viewModel.getSupportedLanguageNames(),
-                langName -> viewModel.setToLanguage(langName));
-    }
-
-    private void initializeSpinner(final int spinnerId, String language, String[] languages,
-                                   Action<String> onItemSelectedCallback) {
-        final Spinner spinner = getActivity().findViewById(spinnerId);
-        final LangAdapter adapter = new LangAdapter(getContext(), R.layout.item_language,
-                languages, getLayoutInflater());
-        final int langPos = adapter.getPosition(language);
-
-        spinner.setAdapter(adapter);
-        spinner.setSelection(langPos);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                final TextView spinnerTextView = (TextView) view;
-
-                if (spinnerTextView != null) {
-                    final String languageName = spinnerTextView.getText().toString();
-
-                    onItemSelectedCallback.run(languageName);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
+    void foo() {
+        handler.postDelayed(() -> {
+            System.out.println(viewModel.getFromLanguage());
+            foo();
+        }, 10000);
     }
 }

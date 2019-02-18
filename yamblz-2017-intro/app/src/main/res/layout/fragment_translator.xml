@@ -41,6 +41,9 @@
             android:layout_marginRight="8dp"
             android:textAlignment="gravity"
             android:gravity="right"
+            android:entries="@{viewModel.languageNames}"
+            android:text="@{viewModel.fromLanguage}"
+            app:onItemSelected="@{(newValue) -> viewModel.setFromLanguage(newValue.toString())}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/left_right_arrow"
             app:layout_constraintBottom_toBottomOf="@+id/header" />
@@ -51,6 +54,9 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:layout_marginLeft="8dp"
+            android:entries="@{viewModel.supportedLanguageNames}"
+            android:text="@{viewModel.toLanguage}"
+            app:onItemSelected="@{(newValue) -> viewModel.setToLanguage(newValue.toString())}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/left_right_arrow"
             app:layout_constraintBottom_toBottomOf="@+id/header" />

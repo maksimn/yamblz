@@ -2,7 +2,6 @@ package io.github.maksimn.yamblz2017intro.ui;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-
 import io.github.maksimn.yamblz2017intro.data.repository.LangRepository;
 
 public class TranslatorViewModel extends BaseObservable {
