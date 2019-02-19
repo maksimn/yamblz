@@ -5,13 +5,12 @@ import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.pojo.Lang;
 import io.github.maksimn.yamblz2017intro.util.JsonUtil;
 import io.github.maksimn.yamblz2017intro.util.ResourceUtil;
+import io.reactivex.Single;
 
 public class LangRepository {
 
     private static Lang[] smLangs;
     private static String[] smLanguageNames;
-
-    private static String[] supported = {"Русский", "Татарский", "Украинский", "Узбекский"};
 
     public LangRepository(Context context) {
         if (smLangs == null) {
@@ -40,5 +39,5 @@ public class LangRepository {
 
     public String secondDefaultLanguage() { return "Русский"; }
 
-    public String[] getSupportedLanguageNames() { return supported; }
+    public Single<String[]> getSupportedLanguageNames() { return null; }
 }

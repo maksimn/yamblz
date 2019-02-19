@@ -12,30 +12,17 @@ public class SpinnerBindings {
 
     @BindingAdapter("android:entries")
     public static void setEntries(Spinner spinner, String[] langs) {
-        ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
-        if (adapter == null) {
-            spinner.setAdapter(new ArrayAdapter<>(spinner.getContext(), R.layout.item_language, langs));
-            return;
-        }
-
-        adapter.clear();
-        for(String lang : langs) {
-            adapter.add(lang);
-        }
+        spinner.setAdapter(new ArrayAdapter<>(spinner.getContext(), R.layout.item_language, langs));
     }
 
     @BindingAdapter("android:text")
     public static void setText(Spinner spinner, String langName) {
-        if (spinner != null) {
-            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
-            int pos = adapter.getPosition(langName);
-            spinner.setSelection(pos);
-        }
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
+        spinner.setSelection(adapter.getPosition(langName));
     }
 
     @BindingAdapter("onItemSelected")
-    public static void setItemSelectedListener(Spinner spinner,
-                                               Action<Object> listener) {
+    public static void setItemSelectedListener(Spinner spinner, Action<Object> listener) {
         if (listener == null) {
             spinner.setOnItemSelectedListener(null);
         } else {

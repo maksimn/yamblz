@@ -8,15 +8,12 @@ public class TranslatorViewModel extends BaseObservable {
 
     private String fromLanguage;
     private String toLanguage;
-
     private String textForTranslation;
-
     private LangRepository langRepository;
 
     public TranslatorViewModel() {
         langRepository = new LangRepository(null);
         setFromLanguage(langRepository.defaultLanguage());
-        setToLanguage(langRepository.secondDefaultLanguage());
     }
 
     public void setFromLanguage(String value) {
@@ -49,6 +46,8 @@ public class TranslatorViewModel extends BaseObservable {
     }
 
     public String[] getSupportedLanguageNames() {
-        return langRepository.getSupportedLanguageNames();
+        String[] stub = {};
+
+        return stub;
     }
 }
