@@ -39,5 +39,13 @@ public class LangRepository {
 
     public String secondDefaultLanguage() { return "Русский"; }
 
-    public Single<String[]> getSupportedLanguageNames() { return null; }
+    public Single<String[]> getSupportedLanguageNames(String langName) {
+        if ("Английский".equals(langName)) {
+            return Single.just(new String[] {"Японский", "Яванский", "Эстонский"});
+        } else if ("Русский".equals(langName)) {
+            return Single.just(new String[] {"Азербайджанский", "Баскский","Башкирский", "Вьетнамский"});
+        } else {
+            return Single.just(new String[] {"Asd", "Fgh"});
+        }
+    }
 }

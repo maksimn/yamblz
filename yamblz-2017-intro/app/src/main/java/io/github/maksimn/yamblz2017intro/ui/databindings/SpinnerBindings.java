@@ -18,7 +18,9 @@ public class SpinnerBindings {
     @BindingAdapter("android:text")
     public static void setText(Spinner spinner, String langName) {
         ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
-        spinner.setSelection(adapter.getPosition(langName));
+        if (adapter != null) {
+            spinner.setSelection(adapter.getPosition(langName));
+        }
     }
 
     @BindingAdapter("onItemSelected")

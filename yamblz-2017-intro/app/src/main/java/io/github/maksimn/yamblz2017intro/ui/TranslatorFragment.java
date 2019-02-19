@@ -25,4 +25,13 @@ public class TranslatorFragment extends Fragment {
         binding.setViewModel(viewModel);
         return view;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (viewModel != null) {
+            viewModel.dispose();
+        }
+    }
 }
