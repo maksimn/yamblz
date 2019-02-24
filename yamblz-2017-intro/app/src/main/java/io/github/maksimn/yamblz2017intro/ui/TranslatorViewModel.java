@@ -27,13 +27,7 @@ public class TranslatorViewModel extends BaseObservable {
     public void setFromLanguage(String value) {
         fromLanguage = value;
 
-        disposable = langRepository.getSupportedLanguageNames(fromLanguage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        this::onSupportedLangsLoadingSuccess,
-                        this::onSupportedLangsLoadingError
-                );
+        fetchSupportedLangNames();
     }
 
     public String getFromLanguage() {
@@ -72,12 +66,22 @@ public class TranslatorViewModel extends BaseObservable {
         return supportedLanguageNames;
     }
 
+    private void fetchSupportedLangNames() {
+        disposable = langRepository.getSupportedLanguageNames(fromLanguage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        this::onSupportedLangsLoadingSuccess,
+                        this::onSupportedLangsLoadingError
+                );
+    }
+
     private void onSupportedLangsLoadingSuccess(String[] langs) {
         setSupportedLanguageNames(langs);
     }
 
     private void onSupportedLangsLoadingError(Throwable t) {
-        setSupportedLanguageNames(new String[] {"..."});
+        setSupportedLanguageNames(new String[] {"[язык не задан]"});
     }
 
     public void dispose() {
