@@ -83,16 +83,15 @@ public class TranslatorFragment extends Fragment {
         disposable = langRepository.getSupportedLanguageNames(selectedLang)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(supportedLangs -> {
-                    if (supportedLangs.length > 0) {
-                        initializeSpinner(R.id.to_language_spinner,
-                                supportedLangs,
-                                supportedLangs[0],
-                                null);
-                    }
-                }, e -> {
-                    String[] error = {"[Нет языка]"};
-                    initializeSpinner(R.id.to_language_spinner, error, error[0], val -> {});
-                });
+                .subscribe(this::fetchSupportedLanguagesSuccess, this::fetchSupportedLanguagesError);
+    }
+
+    private void fetchSupportedLanguagesSuccess(String[] supportedLangs) {
+        initializeSpinner(R.id.to_language_spinner, supportedLangs, supportedLangs[0], null);
+    }
+
+    private void fetchSupportedLanguagesError(Throwable e) {
+        final String[] error = {"[Нет языка]"};
+        initializeSpinner(R.id.to_language_spinner, error, error[0], val -> {});
     }
 }
