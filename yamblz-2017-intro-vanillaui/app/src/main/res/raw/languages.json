@@ -1,0 +1,280 @@
+[{
+  "lang_name":"Азербайджанский",
+  "lang_code":"az"
+},{
+  "lang_name":"Албанский",
+  "lang_code":"sq"
+},{
+  "lang_name":"Амхарский",
+  "lang_code":"am"
+},{
+  "lang_name":"Английский",
+  "lang_code":"en"
+},{
+  "lang_name":"Арабский",
+  "lang_code":"ar"
+},{
+  "lang_name":"Армянский",
+  "lang_code":"hy"
+},{
+  "lang_name":"Африкаанс",
+  "lang_code":"af"
+},{
+  "lang_name":"Баскский",
+  "lang_code":"eu"
+},{
+  "lang_name":"Башкирский",
+  "lang_code":"ba"
+},{
+  "lang_name":"Белорусский",
+  "lang_code":"be"
+},{
+  "lang_name":"Бенгальский",
+  "lang_code":"bn"
+},{
+  "lang_name":"Бирманский",
+  "lang_code":"my"
+},{
+  "lang_name":"Болгарский",
+  "lang_code":"bg"
+},{
+  "lang_name":"Боснийский",
+  "lang_code":"bs"
+},{
+  "lang_name":"Валлийский",
+  "lang_code":"cy"
+},{
+  "lang_name":"Венгерский",
+  "lang_code":"hu"
+},{
+  "lang_name":"Вьетнамский",
+  "lang_code":"vi"
+},{
+  "lang_name":"Гаитянский (креольский)",
+  "lang_code":"ht"
+},{
+  "lang_name":"Галисийский",
+  "lang_code":"gl"
+},{
+  "lang_name":"Голландский",
+  "lang_code":"nl"
+},{
+  "lang_name":"Горномарийский",
+  "lang_code":"mrj"
+},{
+  "lang_name":"Греческий",
+  "lang_code":"el"
+},{
+  "lang_name":"Грузинский",
+  "lang_code":"ka"
+},{
+  "lang_name":"Гуджарати",
+  "lang_code":"gu"
+},{
+  "lang_name":"Датский",
+  "lang_code":"da"
+},{
+  "lang_name":"Иврит",
+  "lang_code":"he"
+},{
+  "lang_name":"Идиш",
+  "lang_code":"yi"
+},{
+  "lang_name":"Индонезийский",
+  "lang_code":"id"
+},{
+  "lang_name":"Ирландский",
+  "lang_code":"ga"
+},{
+  "lang_name":"Итальянский",
+  "lang_code":"it"
+},{
+  "lang_name":"Исландский",
+  "lang_code":"is"
+},{
+  "lang_name":"Испанский",
+  "lang_code":"es"
+},{
+  "lang_name":"Казахский",
+  "lang_code":"kk"
+},{
+  "lang_name":"Каннада",
+  "lang_code":"kn"
+},{
+  "lang_name":"Каталанский",
+  "lang_code":"cn"
+},{
+  "lang_name":"Киргизский",
+  "lang_code":"ky"
+},{
+  "lang_name":"Китайский",
+  "lang_code":"zh"
+},{
+  "lang_name":"Корейский",
+  "lang_code":"ko"
+},{
+  "lang_name":"Коса",
+  "lang_code":"xh"
+},{
+  "lang_name":"Кхмерский",
+  "lang_code":"km"
+},{
+  "lang_name":"Лаосский",
+  "lang_code":"lo"
+},{
+  "lang_name":"Латынь",
+  "lang_code":"la"
+},{
+  "lang_name":"Латышский",
+  "lang_code":"lv"
+},{
+  "lang_name":"Литовский",
+  "lang_code":"lt"
+},{
+  "lang_name":"Люксембургский",
+  "lang_code":"lg"
+},{
+  "lang_name":"Малагасийский",
+  "lang_code":"mg"
+},{
+  "lang_name":"Малайский",
+  "lang_code":"ms"
+},{
+  "lang_name":"Малаялам",
+  "lang_code":"ml"
+},{
+  "lang_name":"Мальтийский",
+  "lang_code":"mt"
+},{
+  "lang_name":"Македонский",
+  "lang_code":"mk"
+},{
+  "lang_name":"Маори",
+  "lang_code":"mi"
+},{
+  "lang_name":"Маратхи",
+  "lang_code":"mr"
+},{
+  "lang_name":"Марийский",
+  "lang_code":"mhr"
+},{
+  "lang_name":"Монгольский",
+  "lang_code":"mn"
+},{
+  "lang_name":"Немецкий",
+  "lang_code":"de"
+},{
+  "lang_name":"Непальский",
+  "lang_code":"ne"
+},{
+  "lang_name":"Норвежский",
+  "lang_code":"no"
+},{
+  "lang_name":"Панджаби",
+  "lang_code":"pa"
+},{
+  "lang_name":"Папьяменто",
+  "lang_code":"pap"
+},{
+  "lang_name":"Персидский",
+  "lang_code":"fa"
+},{
+  "lang_name":"Польский",
+  "lang_code":"pl"
+},{
+  "lang_name":"Португальский",
+  "lang_code":"pt"
+},{
+  "lang_name":"Румынский",
+  "lang_code":"ro"
+},{
+  "lang_name":"Русский",
+  "lang_code":"ru"
+},{
+  "lang_name":"Себуанский",
+  "lang_code":"ceb"
+},{
+  "lang_name":"Сербский",
+  "lang_code":"sr"
+},{
+  "lang_name":"Сингальский",
+  "lang_code":"si"
+},{
+  "lang_name":"Словацкий",
+  "lang_code":"sk"
+},{
+  "lang_name":"Словенский",
+  "lang_code":"sl"
+},{
+  "lang_name":"Суахили",
+  "lang_code":"sw"
+},{
+  "lang_name":"Сунданский",
+  "lang_code":"su"
+},{
+  "lang_name":"Таджикский",
+  "lang_code":"tg"
+},{
+  "lang_name":"Тайский",
+  "lang_code":"th"
+},{
+  "lang_name":"Тагальский",
+  "lang_code":"tl"
+},{
+  "lang_name":"Тамильский",
+  "lang_code":"ta"
+},{
+  "lang_name":"Татарский",
+  "lang_code":"tt"
+},{
+  "lang_name":"Телугу",
+  "lang_code":"te"
+},{
+  "lang_name":"Турецкий",
+  "lang_code":"tr"
+},{
+  "lang_name":"Удмуртский",
+  "lang_code":"udm"
+},{
+  "lang_name":"Узбекский",
+  "lang_code":"uz"
+},{
+  "lang_name":"Украинский",
+  "lang_code":"uk"
+},{
+  "lang_name":"Урду",
+  "lang_code":"ur"
+},{
+  "lang_name":"Финский",
+  "lang_code":"fi"
+},{
+  "lang_name":"Французский",
+  "lang_code":"fr"
+},{
+  "lang_name":"Хинди",
+  "lang_code":"hi"
+},{
+  "lang_name":"Хорватский",
+  "lang_code":"hr"
+},{
+  "lang_name":"Чешский",
+  "lang_code":"cs"
+},{
+  "lang_name":"Шведский",
+  "lang_code":"sv"
+},{
+  "lang_name":"Шотландский",
+  "lang_code":"gd"
+},{
+  "lang_name":"Эсперанто",
+  "lang_code":"et"
+},{
+  "lang_name":"Эстонский",
+  "lang_code":"eo"
+},{
+  "lang_name":"Яванский",
+  "lang_code":"jv"
+},{
+  "lang_name":"Японский",
+  "lang_code":"ja"
+}]
