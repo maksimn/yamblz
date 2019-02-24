@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.repository.LangRepository;
-import io.github.maksimn.yamblz2017intro.ui.adapter.LangAdapter;
 import io.github.maksimn.yamblz2017intro.util.Action;
 
 public class TranslatorFragment extends Fragment {
@@ -36,8 +36,7 @@ public class TranslatorFragment extends Fragment {
         viewModel.setFromLanguage(langRepository.defaultLanguage());
         viewModel.setToLanguage(langRepository.secondDefaultLanguage());
 
-        initializeSpinner(
-                R.id.from_language_spinner,
+        initializeSpinner(R.id.from_language_spinner,
                 viewModel.getFromLanguage(),
                 langRepository.getLanguageNames(),
                 langName -> viewModel.setFromLanguage(langName)
@@ -53,8 +52,8 @@ public class TranslatorFragment extends Fragment {
     private void initializeSpinner(final int spinnerId, String language, String[] languages,
                                    Action<String> onItemSelectedCallback) {
         final Spinner spinner = getActivity().findViewById(spinnerId);
-        final LangAdapter adapter = new LangAdapter(getContext(), R.layout.item_language,
-                languages, getLayoutInflater());
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                R.layout.item_language, languages);
         final int langPos = adapter.getPosition(language);
 
         spinner.setAdapter(adapter);
