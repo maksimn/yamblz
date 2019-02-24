@@ -12,13 +12,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import io.github.maksimn.yamblz2017intro.R;
-import io.github.maksimn.yamblz2017intro.data.repository.LangRepository;
 import io.github.maksimn.yamblz2017intro.util.Action;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class TranslatorFragment extends Fragment {
 
     private TranslatorViewModel viewModel;
-    private LangRepository langRepository;
+
+    private Disposable disposable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -27,34 +30,32 @@ public class TranslatorFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        langRepository = new LangRepository(getActivity());
+    public void onStart() {
+        super.onStart();
 
         viewModel = new TranslatorViewModel();
-        viewModel.setFromLanguage(langRepository.defaultLanguage());
-        viewModel.setToLanguage(langRepository.secondDefaultLanguage());
 
         initializeSpinner(R.id.from_language_spinner,
+                viewModel.getLanguageNames(),
                 viewModel.getFromLanguage(),
-                langRepository.getLanguageNames(),
-                langName -> viewModel.setFromLanguage(langName)
-        );
-        initializeSpinner(
-                R.id.to_language_spinner,
-                viewModel.getToLanguage(),
-                langRepository.getSupportedLanguageNames(),
-                langName -> viewModel.setToLanguage(langName)
-        );
+                this::onFromLangSpinnerItemSelection);
     }
 
-    private void initializeSpinner(final int spinnerId, String language, String[] languages,
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (disposable != null) {
+            disposable.dispose();
+        }
+    }
+
+    private void initializeSpinner(int spinnerId, String[] langs, String selectedLang,
                                    Action<String> onItemSelectedCallback) {
         final Spinner spinner = getActivity().findViewById(spinnerId);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                R.layout.item_language, languages);
-        final int langPos = adapter.getPosition(language);
+                R.layout.item_language, langs);
+        final int langPos = adapter.getPosition(selectedLang);
 
         spinner.setAdapter(adapter);
         spinner.setSelection(langPos);
@@ -73,5 +74,27 @@ public class TranslatorFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+    }
+
+    private void fetchSupportedLanguages() {
+        disposable = viewModel.getSupportedLanguageNames()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(supportedLangs -> {
+                    if (supportedLangs.length > 0) {
+                        initializeSpinner(R.id.to_language_spinner,
+                                supportedLangs,
+                                supportedLangs[0],
+                                selectedLang -> viewModel.setToLanguage(selectedLang));
+                    }
+                }, e -> {
+                    String[] error = {"[Нет языка]"};
+                    initializeSpinner(R.id.to_language_spinner, error, error[0], val -> {});
+                });
+    }
+
+    private void onFromLangSpinnerItemSelection(String selectedLang) {
+        viewModel.setFromLanguage(selectedLang);
+        fetchSupportedLanguages();
     }
 }
