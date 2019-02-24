@@ -41,7 +41,7 @@ public class LangRepository {
 
     public Single<String[]> getSupportedLanguageNames(String langName) {
         if ("Английский".equals(langName)) {
-            return Single.just(new String[] {"Японский", "Яванский", "Эстонский"});
+            return Single.just(new String[] {"Эстонский", "Яванский", "Японский"});
         } else if ("Русский".equals(langName)) {
             return Single.just(new String[] {"Азербайджанский", "Баскский","Башкирский", "Вьетнамский"});
         } else {

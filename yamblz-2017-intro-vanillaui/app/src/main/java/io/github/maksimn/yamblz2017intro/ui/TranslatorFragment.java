@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import io.github.maksimn.yamblz2017intro.R;
+import io.github.maksimn.yamblz2017intro.data.repository.LangRepository;
 import io.github.maksimn.yamblz2017intro.util.Action;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -19,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TranslatorFragment extends Fragment {
 
-    private TranslatorViewModel viewModel;
+    private LangRepository langRepository;
 
     private Disposable disposable;
 
@@ -33,12 +34,12 @@ public class TranslatorFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        viewModel = new TranslatorViewModel();
+        langRepository = new LangRepository(null);
 
         initializeSpinner(R.id.from_language_spinner,
-                viewModel.getLanguageNames(),
-                viewModel.getFromLanguage(),
-                this::onFromLangSpinnerItemSelection);
+                langRepository.getLanguageNames(),
+                langRepository.defaultLanguage(),
+                this::fetchSupportedLanguages);
     }
 
     @Override
@@ -67,7 +68,9 @@ public class TranslatorFragment extends Fragment {
                 if (spinnerTextView != null) {
                     final String languageName = spinnerTextView.getText().toString();
 
-                    onItemSelectedCallback.run(languageName);
+                    if (onItemSelectedCallback != null) {
+                        onItemSelectedCallback.run(languageName);
+                    }
                 }
             }
 
@@ -76,8 +79,8 @@ public class TranslatorFragment extends Fragment {
         });
     }
 
-    private void fetchSupportedLanguages() {
-        disposable = viewModel.getSupportedLanguageNames()
+    private void fetchSupportedLanguages(String selectedLang) {
+        disposable = langRepository.getSupportedLanguageNames(selectedLang)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(supportedLangs -> {
@@ -85,16 +88,11 @@ public class TranslatorFragment extends Fragment {
                         initializeSpinner(R.id.to_language_spinner,
                                 supportedLangs,
                                 supportedLangs[0],
-                                selectedLang -> viewModel.setToLanguage(selectedLang));
+                                null);
                     }
                 }, e -> {
                     String[] error = {"[Нет языка]"};
                     initializeSpinner(R.id.to_language_spinner, error, error[0], val -> {});
                 });
-    }
-
-    private void onFromLangSpinnerItemSelection(String selectedLang) {
-        viewModel.setFromLanguage(selectedLang);
-        fetchSupportedLanguages();
     }
 }
