@@ -43,7 +43,7 @@ public class LangRepository {
         if ("Английский".equals(langName)) {
             return Single.just(new String[] {"Эстонский", "Яванский", "Японский"});
         } else if ("Русский".equals(langName)) {
-            return Single.just(new String[] {"Азербайджанский", "Баскский","Башкирский", "Вьетнамский"});
+            return Single.just(new String[] {"Азербайджанский", "Английский", "Баскский","Башкирский", "Вьетнамский"});
         } else {
             return Single.just(new String[] {"Asd", "Fgh"});
         }
