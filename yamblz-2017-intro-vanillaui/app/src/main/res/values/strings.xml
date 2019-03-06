@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Yamblz 2017 Intro</string>
+
+    <string name="default_language">Английский</string>
+    <string name="second_default_language">Русский</string>
 </resources>
