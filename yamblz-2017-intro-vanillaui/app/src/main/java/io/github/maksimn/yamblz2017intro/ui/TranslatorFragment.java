@@ -24,6 +24,12 @@ public class TranslatorFragment extends Fragment {
     private Spinner fromLangSpinner;
     private Spinner toLangSpinner;
 
+    private String fromLang;
+    private String toLang;
+
+    private final static String FROM_LANGUAGE = "FROM_LANGUAGE";
+    private final static String TO_LANGUAGE = "TO_LANGUAGE";
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -34,18 +40,32 @@ public class TranslatorFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (savedInstanceState != null) {
+            fromLang = savedInstanceState.getString(FROM_LANGUAGE);
+            toLang = savedInstanceState.getString(TO_LANGUAGE);
+        }
+
         fromLangSpinner = getActivity().findViewById(R.id.from_language_spinner);
         toLangSpinner = getActivity().findViewById(R.id.to_language_spinner);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
 
         langRepository = new LangRepository(null);
 
+        final String currentFromLang = fromLang != null ?
+                fromLang : langRepository.defaultLanguage();
+
         SpinnerUtil.setDataAndBehavior(fromLangSpinner, langRepository.getLanguageNames(),
-                langRepository.defaultLanguage(), this::fetchSupportedLanguages);
+                currentFromLang, this::fetchSupportedLanguages);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        final String selectedFromLang = fromLangSpinner.getSelectedItem().toString();
+        final String selectedToLang = toLangSpinner.getSelectedItem().toString();
+
+        outState.putString(FROM_LANGUAGE, selectedFromLang);
+        outState.putString(TO_LANGUAGE, selectedToLang);
     }
 
     @Override
@@ -65,7 +85,9 @@ public class TranslatorFragment extends Fragment {
     }
 
     private void fetchSupportedLanguagesSuccess(String[] supportedLangs) {
-        SpinnerUtil.setDataAndBehavior(toLangSpinner, supportedLangs, supportedLangs[0], null);
+        final String currentToLang = toLang != null ? toLang : supportedLangs[0];
+
+        SpinnerUtil.setDataAndBehavior(toLangSpinner, supportedLangs, currentToLang, null);
     }
 
     private void fetchSupportedLanguagesError(Throwable e) {

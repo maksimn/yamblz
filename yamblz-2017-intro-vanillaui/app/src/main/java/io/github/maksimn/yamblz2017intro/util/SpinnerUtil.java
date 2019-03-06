@@ -16,7 +16,7 @@ public class SpinnerUtil {
         final int langPos = adapter.getPosition(selectedLang);
 
         spinner.setAdapter(adapter);
-        spinner.setSelection(langPos);
+        spinner.setSelection(langPos > -1 ? langPos : 0);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
