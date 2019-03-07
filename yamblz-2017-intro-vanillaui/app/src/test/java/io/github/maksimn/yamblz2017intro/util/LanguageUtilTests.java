@@ -3,7 +3,7 @@ package io.github.maksimn.yamblz2017intro.util;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-public class LangUtilTests {
+public class LanguageUtilTests {
 
     @Test
     public void determineToLang_test1() {
@@ -13,7 +13,7 @@ public class LangUtilTests {
         String[] supportedLanguages = new String[] {"Азербайджанский", "Английский", "Баскский",
                 "Башкирский", "Вьетнамский"};
 
-        String result = LangUtil.determineToLang(fromLang, defaultLanguage, secondDefaultLanguage,
+        String result = LanguageUtil.determineSecondLanguage(fromLang, defaultLanguage, secondDefaultLanguage,
                 supportedLanguages);
 
         assertEquals("Английский", result);

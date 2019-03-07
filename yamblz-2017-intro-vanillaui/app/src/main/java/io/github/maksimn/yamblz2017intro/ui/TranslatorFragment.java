@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 import io.github.maksimn.yamblz2017intro.R;
-import io.github.maksimn.yamblz2017intro.data.repository.LangRepository;
-import io.github.maksimn.yamblz2017intro.util.LangUtil;
+import io.github.maksimn.yamblz2017intro.data.repository.LanguageRepository;
+import io.github.maksimn.yamblz2017intro.util.LanguageUtil;
 import io.github.maksimn.yamblz2017intro.util.SpinnerUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -18,20 +18,20 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TranslatorFragment extends Fragment {
 
-    private LangRepository langRepository = new LangRepository(null);
+    private LanguageRepository languageRepository = new LanguageRepository(null);
 
     private Disposable disposable;
 
-    private Spinner fromLangSpinner;
-    private Spinner toLangSpinner;
+    private Spinner firstLanguageSpinner;
+    private Spinner secondLanguageSpinner;
 
-    private String fromLang;
-    private String toLang;
+    private String firstLanguage;
+    private String secondLanguage;
 
-    private final static String FROM_LANGUAGE = "FROM_LANGUAGE";
-    private final static String TO_LANGUAGE = "TO_LANGUAGE";
+    private final static String FIRST_LANGUAGE = "FIRST_LANGUAGE";
+    private final static String SECOND_LANGUAGE = "SECOND_LANGUAGE";
 
-    private final static String[] error = {"[Нет языка]"};
+    private final static String[] noLanguageError = {"[Нет языка]"};
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -44,26 +44,27 @@ public class TranslatorFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (savedInstanceState != null) {
-            fromLang = savedInstanceState.getString(FROM_LANGUAGE);
-            toLang = savedInstanceState.getString(TO_LANGUAGE);
+            firstLanguage = savedInstanceState.getString(FIRST_LANGUAGE);
+            secondLanguage = savedInstanceState.getString(SECOND_LANGUAGE);
         }
 
-        fromLangSpinner = getActivity().findViewById(R.id.from_language_spinner);
-        toLangSpinner = getActivity().findViewById(R.id.to_language_spinner);
+        firstLanguageSpinner = getActivity().findViewById(R.id.first_language_spinner);
+        secondLanguageSpinner = getActivity().findViewById(R.id.second_language_spinner);
 
-        final String currentFromLang = fromLang != null ?
-                fromLang : langRepository.defaultLanguage();
+        if (firstLanguage == null) {
+            firstLanguage = languageRepository.defaultLanguage();
+        }
 
-        SpinnerUtil.setDataAndBehavior(fromLangSpinner, langRepository.getLanguageNames(),
-                currentFromLang, this::fetchSupportedLanguages);
+        SpinnerUtil.setDataAndBehavior(firstLanguageSpinner, languageRepository.getLanguageNames(),
+                firstLanguage, this::fetchSupportedLanguages);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString(FROM_LANGUAGE, fromLangSpinner.getSelectedItem().toString());
-        outState.putString(TO_LANGUAGE, toLangSpinner.getSelectedItem().toString());
+        outState.putString(FIRST_LANGUAGE, firstLanguageSpinner.getSelectedItem().toString());
+        outState.putString(SECOND_LANGUAGE, secondLanguageSpinner.getSelectedItem().toString());
     }
 
     @Override
@@ -75,26 +76,31 @@ public class TranslatorFragment extends Fragment {
         }
     }
 
-    private void fetchSupportedLanguages(String selectedLang) {
-        disposable = langRepository.getSupportedLanguageNames(selectedLang)
+    private void fetchSupportedLanguages(String selectedLanguage) {
+        disposable = languageRepository.getSupportedLanguageNames(selectedLanguage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::fetchSupportedLanguagesSuccess, this::fetchSupportedLanguagesError);
     }
 
-    private void fetchSupportedLanguagesSuccess(String[] supportedLangs) {
-        String currentToLang = toLang != null ? toLang :
-                LangUtil.determineToLang(fromLang, langRepository.defaultLanguage(),
-                    langRepository.secondDefaultLanguage(), supportedLangs);
+    private void fetchSupportedLanguagesSuccess(String[] supportedLanguages) {
+        firstLanguage = firstLanguageSpinner.getSelectedItem().toString();
+        if (secondLanguage == null) {
+            secondLanguage = LanguageUtil.determineSecondLanguage(firstLanguage,
+                    languageRepository.defaultLanguage(),
+                    languageRepository.secondDefaultLanguage(), supportedLanguages);
 
-        if (currentToLang == null) {
-            currentToLang = error[0];
+            if (secondLanguage == null) {
+                secondLanguage = noLanguageError[0];
+            }
         }
 
-        SpinnerUtil.setDataAndBehavior(toLangSpinner, supportedLangs, currentToLang, null);
+        SpinnerUtil.setDataAndBehavior(secondLanguageSpinner, supportedLanguages, secondLanguage,
+                null);
     }
 
     private void fetchSupportedLanguagesError(Throwable e) {
-        SpinnerUtil.setDataAndBehavior(toLangSpinner, error, error[0], null);
+        SpinnerUtil.setDataAndBehavior(secondLanguageSpinner, noLanguageError, noLanguageError[0],
+                null);
     }
 }
