@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 import io.github.maksimn.yamblz2017intro.R;
-import io.github.maksimn.yamblz2017intro.data.repository.LanguageRepository;
+import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
+import io.github.maksimn.yamblz2017intro.util.Factories;
 import io.github.maksimn.yamblz2017intro.util.LanguageUtil;
 import io.github.maksimn.yamblz2017intro.util.SpinnerUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -18,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TranslatorFragment extends Fragment {
 
-    private LanguageRepository languageRepository = new LanguageRepository(null);
+    private ILanguageRepository languageRepository = Factories.getLanguageRepository();
 
     private Disposable disposable;
 
@@ -85,14 +86,12 @@ public class TranslatorFragment extends Fragment {
 
     private void fetchSupportedLanguagesSuccess(String[] supportedLanguages) {
         firstLanguage = firstLanguageSpinner.getSelectedItem().toString();
-        if (secondLanguage == null) {
-            secondLanguage = LanguageUtil.determineSecondLanguage(firstLanguage,
-                    languageRepository.defaultLanguage(),
-                    languageRepository.secondDefaultLanguage(), supportedLanguages);
+        secondLanguage = LanguageUtil.determineSecondLanguage(firstLanguage,
+                languageRepository.defaultLanguage(),
+                languageRepository.secondDefaultLanguage(), supportedLanguages);
 
-            if (secondLanguage == null) {
-                secondLanguage = noLanguageError[0];
-            }
+        if (secondLanguage == null) {
+            secondLanguage = noLanguageError[0];
         }
 
         SpinnerUtil.setDataAndBehavior(secondLanguageSpinner, supportedLanguages, secondLanguage,

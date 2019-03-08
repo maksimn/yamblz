@@ -1,14 +1,15 @@
-package io.github.maksimn.yamblz2017intro.data.repository;
+package io.github.maksimn.yamblz2017intro.data.impl;
 
 import android.content.Context;
 import android.content.res.Resources;
 import io.github.maksimn.yamblz2017intro.R;
+import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
 import io.github.maksimn.yamblz2017intro.data.pojo.Language;
 import io.github.maksimn.yamblz2017intro.util.JsonUtil;
 import io.github.maksimn.yamblz2017intro.util.ResourceUtil;
 import io.reactivex.Single;
 
-public class LanguageRepository {
+public class LanguageRepository implements ILanguageRepository {
 
     private static Language[] _languages;
     private static String[] _languageNames;
@@ -42,12 +43,16 @@ public class LanguageRepository {
         }
     }
 
+    @Override
     public String[] getLanguageNames() { return _languageNames; }
 
+    @Override
     public String defaultLanguage() { return _defaultLanguage; }
 
+    @Override
     public String secondDefaultLanguage() { return _secondDefaultLanguage; }
 
+    @Override
     public Single<String[]> getSupportedLanguageNames(String language) {
         if ("Английский".equals(language)) {
             return Single.just(new String[] {"Эстонский", "Яванский", "Японский"});
