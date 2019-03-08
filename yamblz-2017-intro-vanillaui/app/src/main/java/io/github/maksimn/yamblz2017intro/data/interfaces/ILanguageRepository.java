@@ -6,9 +6,5 @@ public interface ILanguageRepository {
 
     String[] getLanguageNames();
 
-    String defaultLanguage();
-
-    String secondDefaultLanguage();
-
     Single<String[]> getSupportedLanguageNames(String language);
 }

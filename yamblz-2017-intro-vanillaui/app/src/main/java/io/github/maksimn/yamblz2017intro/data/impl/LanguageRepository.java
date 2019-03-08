@@ -14,9 +14,6 @@ public class LanguageRepository implements ILanguageRepository {
     private static Language[] _languages;
     private static String[] _languageNames;
 
-    private static String _defaultLanguage;
-    private static String _secondDefaultLanguage;
-
     public LanguageRepository(Context context) {
         if (_languages == null) {
             /*
@@ -34,23 +31,11 @@ public class LanguageRepository implements ILanguageRepository {
             for(int i = 0; i < n; i++) {
                 _languageNames[i] = _languages[i].lang_name;
             }
-
-            /*
-             * 2. Get default languages from app resources
-             */
-            _defaultLanguage = res.getString(R.string.default_language);
-            _secondDefaultLanguage = res.getString(R.string.second_default_language);
         }
     }
 
     @Override
     public String[] getLanguageNames() { return _languageNames; }
-
-    @Override
-    public String defaultLanguage() { return _defaultLanguage; }
-
-    @Override
-    public String secondDefaultLanguage() { return _secondDefaultLanguage; }
 
     @Override
     public Single<String[]> getSupportedLanguageNames(String language) {

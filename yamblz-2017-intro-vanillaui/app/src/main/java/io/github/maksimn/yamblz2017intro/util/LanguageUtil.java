@@ -1,11 +1,17 @@
 package io.github.maksimn.yamblz2017intro.util;
 
+import android.content.res.Resources;
 import java.util.Arrays;
+import io.github.maksimn.yamblz2017intro.App;
+import io.github.maksimn.yamblz2017intro.R;
 
 public class LanguageUtil {
 
-    public static String determineSecondLanguage(String firstLanguage, String defaultLanguage,
-                                                 String secondDefaultLanguage, String[] languages) {
+    public static String determineSecondLanguage(String firstLanguage, String[] languages) {
+        final Resources res = App.getApplication().getResources();
+        final String defaultLanguage = res.getString(R.string.default_language);
+        final String secondDefaultLanguage = res.getString(R.string.second_default_language);
+
         if (!defaultLanguage.equals(firstLanguage) && contains(languages, defaultLanguage)) {
 
             return defaultLanguage;

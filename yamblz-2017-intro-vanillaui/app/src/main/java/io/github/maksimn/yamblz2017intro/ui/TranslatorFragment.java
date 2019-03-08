@@ -56,7 +56,7 @@ public class TranslatorFragment extends Fragment {
         }
 
         if (firstLanguage == null) {
-            firstLanguage = languageRepository.defaultLanguage();
+            firstLanguage = getResources().getString(R.string.default_language);
         }
 
         SpinnerUtil.setDataAndBehavior(firstLanguageSpinner, languageRepository.getLanguageNames(),
@@ -93,9 +93,7 @@ public class TranslatorFragment extends Fragment {
         if (isFromSaveInstanceState) {
             isFromSaveInstanceState = false;
         } else {
-            secondLanguage = LanguageUtil.determineSecondLanguage(firstLanguage,
-                    languageRepository.defaultLanguage(),
-                    languageRepository.secondDefaultLanguage(), supportedLanguages);
+            secondLanguage = LanguageUtil.determineSecondLanguage(firstLanguage, supportedLanguages);
         }
 
         if (secondLanguage == null) {
