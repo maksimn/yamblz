@@ -34,6 +34,8 @@ public class TranslatorFragment extends Fragment {
 
     private final static String[] noLanguageError = {"[Нет языка]"};
 
+    private boolean isFromSaveInstanceState = false;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -44,20 +46,21 @@ public class TranslatorFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        firstLanguageSpinner = getActivity().findViewById(R.id.first_language_spinner);
+        secondLanguageSpinner = getActivity().findViewById(R.id.second_language_spinner);
+
         if (savedInstanceState != null) {
             firstLanguage = savedInstanceState.getString(FIRST_LANGUAGE);
             secondLanguage = savedInstanceState.getString(SECOND_LANGUAGE);
+            isFromSaveInstanceState = true;
         }
-
-        firstLanguageSpinner = getActivity().findViewById(R.id.first_language_spinner);
-        secondLanguageSpinner = getActivity().findViewById(R.id.second_language_spinner);
 
         if (firstLanguage == null) {
             firstLanguage = languageRepository.defaultLanguage();
         }
 
         SpinnerUtil.setDataAndBehavior(firstLanguageSpinner, languageRepository.getLanguageNames(),
-                firstLanguage, this::fetchSupportedLanguages);
+                firstLanguage, this::onFirstSpinnerItemSelected);
     }
 
     @Override
@@ -77,7 +80,7 @@ public class TranslatorFragment extends Fragment {
         }
     }
 
-    private void fetchSupportedLanguages(String selectedLanguage) {
+    private void onFirstSpinnerItemSelected(String selectedLanguage) {
         disposable = languageRepository.getSupportedLanguageNames(selectedLanguage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -86,9 +89,14 @@ public class TranslatorFragment extends Fragment {
 
     private void fetchSupportedLanguagesSuccess(String[] supportedLanguages) {
         firstLanguage = firstLanguageSpinner.getSelectedItem().toString();
-        secondLanguage = LanguageUtil.determineSecondLanguage(firstLanguage,
-                languageRepository.defaultLanguage(),
-                languageRepository.secondDefaultLanguage(), supportedLanguages);
+
+        if (isFromSaveInstanceState) {
+            isFromSaveInstanceState = false;
+        } else {
+            secondLanguage = LanguageUtil.determineSecondLanguage(firstLanguage,
+                    languageRepository.defaultLanguage(),
+                    languageRepository.secondDefaultLanguage(), supportedLanguages);
+        }
 
         if (secondLanguage == null) {
             secondLanguage = noLanguageError[0];
