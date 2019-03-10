@@ -11,7 +11,7 @@ public class SpinnerUtil {
 
     public static void setDataAndBehavior(Spinner spinner, String[] languages,
                                           String selectedLanguage,
-                                          Action<String> onItemSelectedCallback) {
+                                          Runnable onItemSelectedCallback) {
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(spinner.getContext(),
                 R.layout.item_language, languages);
         final int pos = adapter.getPosition(selectedLanguage);
@@ -24,10 +24,8 @@ public class SpinnerUtil {
                 final TextView spinnerTextView = (TextView) view;
 
                 if (spinnerTextView != null) {
-                    final String languageName = spinnerTextView.getText().toString();
-
                     if (onItemSelectedCallback != null) {
-                        onItemSelectedCallback.run(languageName);
+                        onItemSelectedCallback.run();
                     }
                 }
             }

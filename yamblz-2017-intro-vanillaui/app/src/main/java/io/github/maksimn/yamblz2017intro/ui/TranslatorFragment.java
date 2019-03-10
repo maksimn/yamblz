@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
 import io.github.maksimn.yamblz2017intro.util.Factories;
+import io.github.maksimn.yamblz2017intro.util.LanguageUtil;
 import io.github.maksimn.yamblz2017intro.util.SpinnerUtil;
 
 public class TranslatorFragment extends Fragment {
@@ -25,6 +26,10 @@ public class TranslatorFragment extends Fragment {
 
     private final static String FIRST_LANGUAGE = "FIRST_LANGUAGE";
     private final static String SECOND_LANGUAGE = "SECOND_LANGUAGE";
+
+    private final static String[] noLanguageError = {"[Нет языка]"};
+
+    private boolean isFromSaveInstanceState = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -60,6 +65,21 @@ public class TranslatorFragment extends Fragment {
         outState.putString(SECOND_LANGUAGE, secondLanguageSpinner.getSelectedItem().toString());
     }
 
-    private void onFirstSpinnerItemSelected(String selectedLanguage) {
+    private void onFirstSpinnerItemSelected() {
+        firstLanguage = firstLanguageSpinner.getSelectedItem().toString();
+        final String[] supportedLanguages =
+                languageRepository.getSupportedLanguageNames(firstLanguage);
+
+        if (isFromSaveInstanceState) {
+            isFromSaveInstanceState = false;
+        } else {
+            secondLanguage = LanguageUtil.determineSecondLanguage(firstLanguage, supportedLanguages);
+        }
+
+        if (secondLanguage == null) {
+            secondLanguage = noLanguageError[0];
+        }
+
+        SpinnerUtil.setDataAndBehavior(secondLanguageSpinner, supportedLanguages, secondLanguage, null);
     }
 }

@@ -1,7 +1,8 @@
 package io.github.maksimn.yamblz2017intro.data.impl;
 
 import android.content.Context;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.TreeMap;
 import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
 import io.github.maksimn.yamblz2017intro.data.pojo.TranslationDirections;
@@ -11,6 +12,7 @@ import io.github.maksimn.yamblz2017intro.util.ResourceUtil;
 public class LanguageRepository implements ILanguageRepository {
 
     private static TranslationDirections translationDirections;
+    private static TreeMap<String, ArrayList<String>> supportedLanguages;
     private static String[] languages;
 
     public LanguageRepository(Context context) {
@@ -20,17 +22,25 @@ public class LanguageRepository implements ILanguageRepository {
 
             translationDirections = JsonUtil.toTranslationsDirections(json);
 
-            final TreeSet<String> set = new TreeSet<>();
+            supportedLanguages = new TreeMap<>();
 
             for (String dir : translationDirections.dirs) {
                 final int ind = dir.indexOf('-');
-                final String langCode = dir.substring(0, ind);
-                final String language = translationDirections.langs.get(langCode);
+                final String firstLangCode = dir.substring(0, ind);
+                final String secondLangCode = dir.substring(ind + 1);
+                final String firstLanguage = translationDirections.langs.get(firstLangCode);
+                final String secondLanguage = translationDirections.langs.get(secondLangCode);
 
-                set.add(language);
+                if (!supportedLanguages.containsKey(firstLanguage)) {
+                    supportedLanguages.put(firstLanguage, new ArrayList<>());
+                }
+
+                final ArrayList<String> list = supportedLanguages.get(firstLanguage);
+
+                list.add(secondLanguage);
             }
 
-            languages = set.toArray(new String[0]);
+            languages = supportedLanguages.keySet().toArray(new String[0]);
         }
     }
 
@@ -41,6 +51,8 @@ public class LanguageRepository implements ILanguageRepository {
 
     @Override
     public String[] getSupportedLanguageNames(String language) {
-         return new String[]{};
+        final ArrayList<String> list = supportedLanguages.get(language);
+
+        return list.toArray(new String[0]);
     }
 }
