@@ -1,10 +1,10 @@
 package io.github.maksimn.yamblz2017intro.data.pojo;
 
-import java.util.Map;
+import java.util.HashMap;
 
 public class TranslationDirections {
 
     public String[] dirs;
 
-    public Map<String, String> langs;
+    public HashMap<String, String> langs;
 }
