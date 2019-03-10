@@ -11,17 +11,11 @@ import android.widget.Spinner;
 import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
 import io.github.maksimn.yamblz2017intro.util.Factories;
-import io.github.maksimn.yamblz2017intro.util.LanguageUtil;
 import io.github.maksimn.yamblz2017intro.util.SpinnerUtil;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class TranslatorFragment extends Fragment {
 
     private ILanguageRepository languageRepository = Factories.getLanguageRepository();
-
-    private Disposable disposable;
 
     private Spinner firstLanguageSpinner;
     private Spinner secondLanguageSpinner;
@@ -31,10 +25,6 @@ public class TranslatorFragment extends Fragment {
 
     private final static String FIRST_LANGUAGE = "FIRST_LANGUAGE";
     private final static String SECOND_LANGUAGE = "SECOND_LANGUAGE";
-
-    private final static String[] noLanguageError = {"[Нет языка]"};
-
-    private boolean isFromSaveInstanceState = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -52,7 +42,6 @@ public class TranslatorFragment extends Fragment {
         if (savedInstanceState != null) {
             firstLanguage = savedInstanceState.getString(FIRST_LANGUAGE);
             secondLanguage = savedInstanceState.getString(SECOND_LANGUAGE);
-            isFromSaveInstanceState = true;
         }
 
         if (firstLanguage == null) {
@@ -71,41 +60,6 @@ public class TranslatorFragment extends Fragment {
         outState.putString(SECOND_LANGUAGE, secondLanguageSpinner.getSelectedItem().toString());
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        if (disposable != null) {
-            disposable.dispose();
-        }
-    }
-
     private void onFirstSpinnerItemSelected(String selectedLanguage) {
-        disposable = languageRepository.getSupportedLanguageNames(selectedLanguage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::fetchSupportedLanguagesSuccess, this::fetchSupportedLanguagesError);
-    }
-
-    private void fetchSupportedLanguagesSuccess(String[] supportedLanguages) {
-        firstLanguage = firstLanguageSpinner.getSelectedItem().toString();
-
-        if (isFromSaveInstanceState) {
-            isFromSaveInstanceState = false;
-        } else {
-            secondLanguage = LanguageUtil.determineSecondLanguage(firstLanguage, supportedLanguages);
-        }
-
-        if (secondLanguage == null) {
-            secondLanguage = noLanguageError[0];
-        }
-
-        SpinnerUtil.setDataAndBehavior(secondLanguageSpinner, supportedLanguages, secondLanguage,
-                null);
-    }
-
-    private void fetchSupportedLanguagesError(Throwable e) {
-        SpinnerUtil.setDataAndBehavior(secondLanguageSpinner, noLanguageError, noLanguageError[0],
-                null);
     }
 }

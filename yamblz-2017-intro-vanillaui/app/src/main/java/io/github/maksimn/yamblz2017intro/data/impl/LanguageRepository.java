@@ -1,60 +1,46 @@
 package io.github.maksimn.yamblz2017intro.data.impl;
 
 import android.content.Context;
-import android.content.res.Resources;
+import java.util.TreeSet;
 import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
-import io.github.maksimn.yamblz2017intro.data.pojo.Language;
 import io.github.maksimn.yamblz2017intro.data.pojo.TranslationDirections;
 import io.github.maksimn.yamblz2017intro.util.JsonUtil;
 import io.github.maksimn.yamblz2017intro.util.ResourceUtil;
-import io.reactivex.Single;
 
 public class LanguageRepository implements ILanguageRepository {
 
-    private static Language[] _languages;
-    private static String[] _languageNames;
-
     private static TranslationDirections translationDirections;
+    private static String[] languages;
 
     public LanguageRepository(Context context) {
-        if (_languages == null) {
-            /*
-             * 1. Get list of all languages from a raw resource
-             */
-            final Resources res = context.getResources();
-            final String languagesJson = ResourceUtil.readRawAsString(res, R.raw.languages);
-
-            _languages = JsonUtil.toLanguageList(languagesJson);
-
-            final int n = _languages.length;
-
-            _languageNames = new String[n];
-
-            for(int i = 0; i < n; i++) {
-                _languageNames[i] = _languages[i].lang_name;
-            }
-
-            // set translationDirections:
-            final String json = ResourceUtil.readRawAsString(res, R.raw.translator_langs);
+        if (translationDirections == null) {
+            final String json = ResourceUtil.readRawAsString(context.getResources(),
+                    R.raw.translator_langs);
 
             translationDirections = JsonUtil.toTranslationsDirections(json);
 
-            translationDirections.toString();
+            final TreeSet<String> set = new TreeSet<>();
+
+            for (String dir : translationDirections.dirs) {
+                final int ind = dir.indexOf('-');
+                final String langCode = dir.substring(0, ind);
+                final String language = translationDirections.langs.get(langCode);
+
+                set.add(language);
+            }
+
+            languages = set.toArray(new String[0]);
         }
     }
 
     @Override
-    public String[] getLanguageNames() { return _languageNames; }
+    public String[] getLanguageNames() {
+        return languages;
+    }
 
     @Override
-    public Single<String[]> getSupportedLanguageNames(String language) {
-        if ("Английский".equals(language)) {
-            return Single.just(new String[] {"Эстонский", "Яванский", "Японский"});
-        } else if ("Русский".equals(language)) {
-            return Single.just(new String[] {"Азербайджанский", "Английский", "Баскский","Башкирский", "Вьетнамский"});
-        } else {
-            return Single.just(new String[] {"Asd", "Fgh"});
-        }
+    public String[] getSupportedLanguageNames(String language) {
+         return new String[]{};
     }
 }
