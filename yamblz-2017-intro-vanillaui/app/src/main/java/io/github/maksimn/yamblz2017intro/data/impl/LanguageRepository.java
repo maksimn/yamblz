@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
 import io.github.maksimn.yamblz2017intro.data.pojo.Language;
+import io.github.maksimn.yamblz2017intro.data.pojo.TranslationDirections;
 import io.github.maksimn.yamblz2017intro.util.JsonUtil;
 import io.github.maksimn.yamblz2017intro.util.ResourceUtil;
 import io.reactivex.Single;
@@ -13,6 +14,8 @@ public class LanguageRepository implements ILanguageRepository {
 
     private static Language[] _languages;
     private static String[] _languageNames;
+
+    private static TranslationDirections translationDirections;
 
     public LanguageRepository(Context context) {
         if (_languages == null) {
@@ -31,6 +34,13 @@ public class LanguageRepository implements ILanguageRepository {
             for(int i = 0; i < n; i++) {
                 _languageNames[i] = _languages[i].lang_name;
             }
+
+            // set translationDirections:
+            final String json = ResourceUtil.readRawAsString(res, R.raw.translator_langs);
+
+            translationDirections = JsonUtil.toTranslationsDirections(json);
+
+            translationDirections.toString();
         }
     }
 

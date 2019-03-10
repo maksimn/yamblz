@@ -13,9 +13,9 @@ public class LanguageUtilTests {
         String[] supportedLanguages = new String[] {"Азербайджанский", "Английский", "Баскский",
                 "Башкирский", "Вьетнамский"};
 
-        String result = LanguageUtil.determineSecondLanguage(fromLang, defaultLanguage, secondDefaultLanguage,
-                supportedLanguages);
+//        String result = LanguageUtil.determineSecondLanguage(fromLang, defaultLanguage, secondDefaultLanguage,
+//                supportedLanguages);
 
-        assertEquals("Английский", result);
+         assertEquals("Английский", null);
     }
 }

@@ -3,4 +3,6 @@
 
     <string name="default_language">Английский</string>
     <string name="second_default_language">Русский</string>
+
+    <string name="tr_yandex_api_key">trnsl.1.1.20190308T225103Z.03f7eccfa6946358.fcc85b6387d6223f20a548dbcc0789a46272150b</string>
 </resources>
