@@ -17,7 +17,7 @@ import retrofit2.http.POST;
 import okhttp3.Cache;
 import retrofit2.http.Query;
 
-public class HttpLangDataLoader {
+class HttpLangDataLoader {
 
     private interface LangDataRepository {
 

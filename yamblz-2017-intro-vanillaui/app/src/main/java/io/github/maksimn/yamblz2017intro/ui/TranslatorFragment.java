@@ -14,6 +14,7 @@ import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
 import io.github.maksimn.yamblz2017intro.util.Factories;
 import io.github.maksimn.yamblz2017intro.util.LanguageUtil;
 import io.github.maksimn.yamblz2017intro.util.SpinnerUtil;
+import io.reactivex.disposables.Disposable;
 
 public class TranslatorFragment extends Fragment {
 
@@ -31,6 +32,8 @@ public class TranslatorFragment extends Fragment {
     private final static String[] noLanguageError = {"[Нет языка]"};
 
     private boolean isFromSaveInstanceState = false;
+
+    private Disposable disposable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -55,8 +58,17 @@ public class TranslatorFragment extends Fragment {
             firstLanguage = getResources().getString(R.string.default_language);
         }
 
-        languageRepository.loadLangData()
+        disposable = languageRepository.loadLangData()
                 .subscribe(this::loadLangDataSuccess, this::loadLangDataError);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (disposable != null) {
+            disposable.dispose();
+        }
     }
 
     @Override
