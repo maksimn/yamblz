@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
 import io.github.maksimn.yamblz2017intro.data.pojo.LangsDirsRawData;
-import io.reactivex.Single;
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class LanguageRepository implements ILanguageRepository {
 
-    private static String[] languages;
-    private static TreeMap<String, ArrayList<String>> supportedLanguages;
+    private String[] languages;
+    private TreeMap<String, ArrayList<String>> supportedLanguages;
 
-    @Override
-    public void initFromRawData(LangsDirsRawData langsDirsRawData) {
+    public void parseRawData(LangsDirsRawData langsDirsRawData) {
         supportedLanguages = new TreeMap<>();
 
         for (String dir : langsDirsRawData.dirs) {
@@ -47,9 +48,14 @@ public class LanguageRepository implements ILanguageRepository {
     }
 
     @Override
-    public Single<LangsDirsRawData> loadLangData() {
-        HttpLangDataLoader httpLangDataLoader = new HttpLangDataLoader();
-
-        return httpLangDataLoader.getLangsDirsRawData();
+    public Completable loadLangData() {
+        return new HttpLangDataLoader().getLangsDirsRawData()
+                .subscribeOn(Schedulers.io())
+                .map(langsDirsRawData -> {
+                    parseRawData(langsDirsRawData);
+                    return new Object();
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .ignoreElement();
     }
 }

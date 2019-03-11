@@ -1,7 +1,6 @@
 package io.github.maksimn.yamblz2017intro.data.interfaces;
 
-import io.github.maksimn.yamblz2017intro.data.pojo.LangsDirsRawData;
-import io.reactivex.Single;
+import io.reactivex.Completable;
 
 public interface ILanguageRepository {
 
@@ -9,7 +8,5 @@ public interface ILanguageRepository {
 
     String[] getSupportedLanguageNames(String language);
 
-    Single<LangsDirsRawData> loadLangData();
-
-    void initFromRawData(LangsDirsRawData langsDirsRawData);
+    Completable loadLangData();
 }

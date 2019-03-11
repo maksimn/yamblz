@@ -8,13 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
 import io.github.maksimn.yamblz2017intro.util.Factories;
 import io.github.maksimn.yamblz2017intro.util.LanguageUtil;
 import io.github.maksimn.yamblz2017intro.util.SpinnerUtil;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class TranslatorFragment extends Fragment {
 
@@ -49,6 +48,7 @@ public class TranslatorFragment extends Fragment {
         if (savedInstanceState != null) {
             firstLanguage = savedInstanceState.getString(FIRST_LANGUAGE);
             secondLanguage = savedInstanceState.getString(SECOND_LANGUAGE);
+            isFromSaveInstanceState = true;
         }
 
         if (firstLanguage == null) {
@@ -56,16 +56,7 @@ public class TranslatorFragment extends Fragment {
         }
 
         languageRepository.loadLangData()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(langsDirsRawData -> {
-                    languageRepository.initFromRawData(langsDirsRawData);
-
-                    SpinnerUtil.setDataAndBehavior(firstLanguageSpinner, languageRepository.getLanguageNames(),
-                            firstLanguage, this::onFirstSpinnerItemSelected);
-                }, err -> {
-
-                });
+                .subscribe(this::loadLangDataSuccess, this::loadLangDataError);
     }
 
     @Override
@@ -74,6 +65,15 @@ public class TranslatorFragment extends Fragment {
 
         outState.putString(FIRST_LANGUAGE, firstLanguageSpinner.getSelectedItem().toString());
         outState.putString(SECOND_LANGUAGE, secondLanguageSpinner.getSelectedItem().toString());
+    }
+
+    private void loadLangDataSuccess() {
+        SpinnerUtil.setDataAndBehavior(firstLanguageSpinner, languageRepository.getLanguageNames(),
+                firstLanguage, this::onFirstSpinnerItemSelected);
+    }
+
+    private void loadLangDataError(Throwable t) {
+        Toast.makeText(getActivity(), "Ошибка получения списка языков", Toast.LENGTH_LONG).show();
     }
 
     private void onFirstSpinnerItemSelected() {

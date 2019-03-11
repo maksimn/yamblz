@@ -22,10 +22,7 @@ public class HttpLangDataLoader {
     private interface LangDataRepository {
 
         @POST("api/v1.5/tr.json/getLangs")
-        Single<LangsDirsRawData> fetchTranslationDirections(
-                @Query("key") String key,
-                @Query("ui") String ui
-        );
+        Single<LangsDirsRawData> fetchLangsDirsRawData(@Query("key") String key, @Query("ui") String ui);
 
         static boolean hasNetwork(Context context) {
             boolean isConnected = false;
@@ -79,6 +76,6 @@ public class HttpLangDataLoader {
         String key = resources.getString(R.string.tr_yandex_api_key);
         String ui = "ru";
 
-        return LangDataRepository.create().fetchTranslationDirections(key, ui);
+        return LangDataRepository.create().fetchLangsDirsRawData(key, ui);
     }
 }
