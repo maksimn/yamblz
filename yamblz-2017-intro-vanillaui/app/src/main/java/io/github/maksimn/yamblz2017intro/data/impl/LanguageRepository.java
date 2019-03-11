@@ -1,47 +1,37 @@
 package io.github.maksimn.yamblz2017intro.data.impl;
 
-import android.content.Context;
 import java.util.ArrayList;
 import java.util.TreeMap;
-import io.github.maksimn.yamblz2017intro.R;
 import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
-import io.github.maksimn.yamblz2017intro.data.pojo.TranslationDirections;
-import io.github.maksimn.yamblz2017intro.util.JsonUtil;
-import io.github.maksimn.yamblz2017intro.util.ResourceUtil;
+import io.github.maksimn.yamblz2017intro.data.pojo.LangsDirsRawData;
+import io.reactivex.Single;
 
 public class LanguageRepository implements ILanguageRepository {
 
-    private static TranslationDirections translationDirections;
-    private static TreeMap<String, ArrayList<String>> supportedLanguages;
     private static String[] languages;
+    private static TreeMap<String, ArrayList<String>> supportedLanguages;
 
-    public LanguageRepository(Context context) {
-        if (translationDirections == null) {
-            final String json = ResourceUtil.readRawAsString(context.getResources(),
-                    R.raw.translator_langs);
+    @Override
+    public void initFromRawData(LangsDirsRawData langsDirsRawData) {
+        supportedLanguages = new TreeMap<>();
 
-            translationDirections = JsonUtil.toTranslationsDirections(json);
+        for (String dir : langsDirsRawData.dirs) {
+            final int ind = dir.indexOf('-');
+            final String firstLangCode = dir.substring(0, ind);
+            final String secondLangCode = dir.substring(ind + 1);
+            final String firstLanguage = langsDirsRawData.langs.get(firstLangCode);
+            final String secondLanguage = langsDirsRawData.langs.get(secondLangCode);
 
-            supportedLanguages = new TreeMap<>();
-
-            for (String dir : translationDirections.dirs) {
-                final int ind = dir.indexOf('-');
-                final String firstLangCode = dir.substring(0, ind);
-                final String secondLangCode = dir.substring(ind + 1);
-                final String firstLanguage = translationDirections.langs.get(firstLangCode);
-                final String secondLanguage = translationDirections.langs.get(secondLangCode);
-
-                if (!supportedLanguages.containsKey(firstLanguage)) {
-                    supportedLanguages.put(firstLanguage, new ArrayList<>());
-                }
-
-                final ArrayList<String> list = supportedLanguages.get(firstLanguage);
-
-                list.add(secondLanguage);
+            if (!supportedLanguages.containsKey(firstLanguage)) {
+                supportedLanguages.put(firstLanguage, new ArrayList<>());
             }
 
-            languages = supportedLanguages.keySet().toArray(new String[0]);
+            final ArrayList<String> list = supportedLanguages.get(firstLanguage);
+
+            list.add(secondLanguage);
         }
+
+        languages = supportedLanguages.keySet().toArray(new String[0]);
     }
 
     @Override
@@ -54,5 +44,12 @@ public class LanguageRepository implements ILanguageRepository {
         final ArrayList<String> list = supportedLanguages.get(language);
 
         return list.toArray(new String[0]);
+    }
+
+    @Override
+    public Single<LangsDirsRawData> loadLangData() {
+        HttpLangDataLoader httpLangDataLoader = new HttpLangDataLoader();
+
+        return httpLangDataLoader.getLangsDirsRawData();
     }
 }

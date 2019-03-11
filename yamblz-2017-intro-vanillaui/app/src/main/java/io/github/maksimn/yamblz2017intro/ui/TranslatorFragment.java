@@ -13,6 +13,8 @@ import io.github.maksimn.yamblz2017intro.data.interfaces.ILanguageRepository;
 import io.github.maksimn.yamblz2017intro.util.Factories;
 import io.github.maksimn.yamblz2017intro.util.LanguageUtil;
 import io.github.maksimn.yamblz2017intro.util.SpinnerUtil;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class TranslatorFragment extends Fragment {
 
@@ -53,8 +55,17 @@ public class TranslatorFragment extends Fragment {
             firstLanguage = getResources().getString(R.string.default_language);
         }
 
-        SpinnerUtil.setDataAndBehavior(firstLanguageSpinner, languageRepository.getLanguageNames(),
-                firstLanguage, this::onFirstSpinnerItemSelected);
+        languageRepository.loadLangData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(langsDirsRawData -> {
+                    languageRepository.initFromRawData(langsDirsRawData);
+
+                    SpinnerUtil.setDataAndBehavior(firstLanguageSpinner, languageRepository.getLanguageNames(),
+                            firstLanguage, this::onFirstSpinnerItemSelected);
+                }, err -> {
+
+                });
     }
 
     @Override
